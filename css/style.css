@@ -1,0 +1,288 @@
+* {
+	text-decoration: none;
+	font-family: Calibri, Arial, sans-serif;
+	margin: 0px;
+	padding: 0px;
+	box-sizing: border-box;
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 100vh;
+}
+
+header {
+	width: 100%;
+	padding: 5px;
+	margin-bottom: 10px;
+	height: auto;
+	background-color: #222A35;
+	padding-top: 5px;
+	display: flex;
+	justify-content: space-around;
+}
+
+a {
+	color: #50648C;
+	font-size: 1.0em;
+	text-decoration: underline;
+}
+a:hover {
+	color: #F9B12F;
+}
+
+button {
+	border: none;
+	background-color: transparent;
+}
+
+p {
+	font-size: 1.0em;
+}
+
+.logo {
+	width: 10%;
+	text-align: center;
+	flex: 1;
+}
+
+.logo img {
+	height: 52px;
+	width: 120px;
+	margin: 5px;
+}
+
+.book-file-address-container {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	text-align: center;
+	color: white;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+input::-webkit-input-placeholder {
+	color: #B5C1D5;
+}
+
+input::-moz-placeholder{
+	color: #B5C1D5;
+}
+
+.main-area {
+	height: auto;
+	text-align: center;
+	margin: 5px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	flex: 5;
+}
+
+.article-couple {
+	display: flex;
+	flex-direction: raw;
+	align-items: stretch;
+	width: 100%;
+}
+
+.left, .right {
+	display: flex;
+	flex-direction: raw;
+	margin: 3px;
+    flex-basis: 50%;
+	align-self: stretch;
+	align-items: stretch;
+}
+
+.article1, .article2 {
+	background-color: #ECEFF4;
+}
+
+.article-panel, .addDelete {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	color: white;
+}
+
+.article-button {
+	cursor: pointer;
+	height: 20px;
+	width: 20px;
+}
+
+.articles-count {
+	cursor: default;
+	color: #FA9038;
+	font-size: 0.9rem;
+}
+
+.book-file-address {
+	cursor: pointer;
+}
+
+.book-file-address-label {
+	cursor: pointer;
+}
+
+.leftNumber, .rightNumber {
+	background-color: #FA9038;
+	cursor: pointer;
+	text-align: center;
+}
+
+.article-number {
+	display: block;
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	user-select: none;
+	background-color: #FA9038;
+	cursor: pointer;
+	text-align: center;
+}
+
+.article-number-bookmark {
+	background-color: #D56305;
+}
+
+textarea {
+	display: block;
+	box-sizing: border-box;
+	resize: none;
+	min-height: 3em;
+	padding: 10px;
+	border: none;
+	background-color: #ECEFF4;
+	font-size: 1.2em;
+	width: 100%;
+}
+
+h1 {
+	font-size: 1.2em;
+	text-align: center;
+}
+
+.footer {
+	width: 100%;
+	position: fixed;
+	height: auto;
+	background-color: #222A35;
+	margin-top: 10px;
+	padding: 7px;
+	vertical-align: middle;
+	display: flex;
+	justify-content: space-between;
+	flex-direction: row;
+	bottom: 0px;
+}
+
+.stats {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-number {
+	color: white;
+	font-size: 0.9rem;
+	cursor: pointer;
+}
+
+.slash {
+	color: #FA9038;
+	font-size: 0.9rem;
+}
+
+.percents {
+	width: 35px;
+	display: block;
+	text-align: right;
+	color: #FFFFFF;
+	font-size: 0.9rem;
+}
+
+.scroll-score {
+	background: rgba(250,143,56,1);
+	height: 2px;
+	width: 100%;
+}
+
+.shift-area {
+	display: inline-flex;
+}
+
+.article-indexes-container {
+	display: flex;
+	flex-direction: column;
+}
+
+.left-column {
+	background-color: #ECEFF4;
+	border-color: #ECEFF4;
+}
+
+.panel {
+	display: flex;
+}
+
+.subpanel {
+	margin: 0px 15px;
+}
+
+.bookmark-score-container {
+	display: flex;
+	flex-direction: row;
+}
+
+.scroll-panel {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.panel-button {
+	margin: 0px 3px;
+	cursor: pointer;
+}
+
+.panel-button-img {
+	height: 30px;
+}
+
+.save-sources-panel-button {
+	opacity: 0.5;
+}
+
+.save-needed {
+	opacity: 1.0;
+}
+
+.article-index {
+	height: 17px;
+	border: none;
+}
+
+.article {
+	display: block;
+	text-align: left;
+	font-size: 1.4em;
+	height: 100%;
+	align-self: stretch;
+	overflow: auto;
+	background-color: #ECEFF4;
+}
+
+[lang="ar"],
+[lang="fa"],
+[lang="he"],
+[lang="ug"],
+[lang="ur"],
+[lang="yi"] {
+	direction: rtl;
+	text-align: right;
+}
