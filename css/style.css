@@ -254,12 +254,8 @@ h1 {
 	height: 30px;
 }
 
-.save-sources-panel-button {
-	opacity: 0.5;
-}
-
-.save-needed {
-	opacity: 1.0;
+.save-not-needed {
+	opacity: 0.6;
 }
 
 .article-index {
