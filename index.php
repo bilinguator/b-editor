@@ -78,7 +78,7 @@
             if (@$_GET['book1'] == @$_GET['book2'] and @$_GET['book1'] != "" and @$_GET['book2'] != "")
                 echo "<p>Вы выбрали одну и ту же книгу дважды</p>";
             
-            // Начало большого условия "если обе книги выбраны"
+            // Beginning of the big condition "if both books are selected"
             if (@$_GET['book1'] != "" and @$_GET['book2'] != "" and @$_GET['book1'] != @$_GET['book2']):
                 $BOOK1PATH = "books/" . iconv('UTF-8', 'cp1251', stripslashes($_GET['book1']));
                 $BOOK2PATH = "books/" . iconv('UTF-8', 'cp1251', stripslashes($_GET['book2']));
@@ -105,14 +105,14 @@
                         $arr2[$a] = $BOOK2[$i];
                     }
                 }
-                // Подсчёт наиболее длинной книги
+                // Counting the longest book
                 if (count($arr1) > count($arr2)) {
                     $MORE = count($arr1);
                 } else {
                     $MORE = count($arr2);
                 }
                     
-                // Получение номера закладки
+                // Getting the bookmark number
                 $bookmarkFileAddress = 'books/bookmark.txt';
                 $bookmark = '0';
                 if (file_exists($bookmarkFileAddress)) {
@@ -122,7 +122,7 @@
                     }
                 }
                 
-                // Получение языков
+                // Getting languages
                 $lang1 = explode('.', $_GET['book1'])[0];
                 $lang1 = explode(' ', $lang1)[0];
                 $lang1 = explode('_', $lang1);
@@ -133,7 +133,7 @@
                 $lang2 = explode('_', $lang2);
                 $lang2 = end($lang2);
                 
-                // Начало цикла отображения пар абзацев
+                // Beginning of the loop displaying couples of paragraphs
                 for ($i = 0; $i < $MORE; $i++):
                     $bookmarkClass = ($bookmark == $i) ? ' article-number-bookmark' : '';
         ?>
@@ -332,7 +332,7 @@
         const saveDir = 'books/saved'
         const outputBase = `${saveDir}/${bookID}_${lang1}_${lang2}`
         
-        // Получить исходный массив
+        // Get original array
         function getArticlesArray (side = 'left') {
             let articles = document.querySelectorAll('.article-' + side);
             let articlesArray = Array();
@@ -349,7 +349,7 @@
             return getArticlesArray(side).join('\n');
         }
         
-        // Настройка textarea по высоте
+        // Adjusting textarea height
         function fixTextArea () {
             let textareaNeeded = document.querySelectorAll('.article');
             
@@ -370,7 +370,7 @@
         
         fixTextArea();
         
-        // Уравнивание соседних textarea
+        // Adjusting height of adjacent textareas
         function alignSiblingTextareas (index = 'all') {
             if (index === 'all') {
                 let articleCouplesNumber = document.querySelectorAll('.article-couple').length;
@@ -398,7 +398,6 @@
             article.addEventListener('input', () => {
                 let articleIndex = getArticleIndex(article);
                 
-                //fixTextArea();
                 alignSiblingTextareas(articleIndex);
                 document.querySelectorAll('.panel-button').forEach((button) => {
                     button.classList.remove('save-not-needed');
@@ -406,7 +405,7 @@
             });
         });
         
-        // Добавить отступ снизу от .main-area
+        // Add padding below .main-area
         function addMainAreaPaddingBottom () {
             document.querySelector('.main-area').style.paddingBottom = document.querySelector('.footer').offsetHeight + 20 + 'px';
         }
@@ -419,7 +418,7 @@
             addMainAreaPaddingBottom();
         });
         
-        // Получить автора
+        // Get author
         function getAuthor (side = 'left') {
             let authorArray = getArticlesArray(side)[0].split(",");
             let authorSplit = [];
@@ -438,7 +437,7 @@
             return author;
         }
         
-        // Получить название
+        // Get title
         function getTitle (side = 'left') {
             let titleArray = getArticlesArray(side)[1].split("<delimiter>");
             let title = titleArray[0].split("<h1>").join("").split("</h1>").join("");
@@ -455,13 +454,13 @@
             return titleRest;
         }
         
-        // Название файла
+        // Get file name
         function getFileName (type = '') {
             let space = type ? '_' : '';
             return bookID + '_' + getBookLang(1) + '_' + getBookLang(2) + space + type;
         }
         
-        // Фокус на заданный абзац
+        // Focus on a given paragraph
         function aimAtArticle() {
             let targetArticleNumber = document.querySelectorAll('.article-index')[0].value;
             let targetArticle = document.querySelectorAll('.article-left')[targetArticleNumber];
@@ -470,7 +469,7 @@
             }
         }
         
-        // Создание закладки
+        // Set bookmark
         function setBookmark () {
             let targetArticleNumber = document.querySelectorAll('.article-index')[0].value;
                 if (Number.isInteger(Number(targetArticleNumber))) {
@@ -523,7 +522,7 @@
             }
         }
         
-        // Фокус на закладку
+        // Focus on bookmark
         function focusBookmark () {
             let bookmarkNumber = Number(document.querySelector('.bookmark-number').innerHTML);
             let targetArticleCouple = document.querySelectorAll('.article-couple')[bookmarkNumber];
@@ -531,7 +530,7 @@
         }
         document.querySelector('.bookmark-number').addEventListener('click', focusBookmark);
         
-        // Пересчёт номеров абзацев
+        // Recalculation of paragraph numbers
         function recountArticleNumbers () {
             let leftArticleNumbers = document.querySelectorAll('.article-number-left');
             let rightArticleNumbers = document.querySelectorAll('.article-number-right');
@@ -544,7 +543,7 @@
             showArticlesCount();
         }
         
-        // Получить коды языков
+        // Get language code
         function getBookLang (bookIndex = 1) {
             let fileAddress = sessionStorage.getItem('book' + bookIndex + '-file-address');
             let fileName = fileAddress.split('/')[1].split('.')[0];
@@ -592,7 +591,7 @@
                                illustrationsDir);
         }
         
-        //Сохранение исходников
+        // Save sources
         function saveSources () {
             if (document.querySelectorAll('.article-couple').length === 0) {
                 return false;
@@ -686,7 +685,7 @@
             saveEpub();
         });
         
-        // Вывод количества абзацев
+        // Displaying number of paragraphs
         function showArticlesCount () {
             let articlesCountArea = document.querySelector('.articles-count');
             let articlesArrayLeft = getArticlesArray('left');
@@ -702,7 +701,7 @@
         
         showArticlesCount ();
 
-        // Класс для выделяемого абзаца
+        // Class for the selected paragraph
         class focusedArticle {
             constructor(article, start = 0, end = 0) {
                 this._article = article;
@@ -737,7 +736,7 @@
         
         let activeArticle = new focusedArticle();
         
-        // Определение номера изображения
+        // Get image number
         function getImgNumber () {
             let targetArticle = document.activeElement;
             let joinedText = '';
@@ -751,7 +750,7 @@
             return joinedText.split('<img').length;
         }
         
-        //Вставка текста в абзац вместо выделения
+        // Inserting text to paragraph instead of selected text 
         function insertTextToArticle (text, article, isInserted = true) {
             
             if (article.classList.contains('article') && text !== '') {
@@ -778,7 +777,7 @@
             }
         }
         
-        //Изменить регистр
+        // Switch case
         function switchCase (text) {
             let textLowered = text.toLowerCase();
             let textUppered = text.toUpperCase();
@@ -790,7 +789,7 @@
             }
         }
         
-        //Получить выделенный текст
+        // Get selected text
         function getSelectedText () {
             
             if (document.activeElement.classList.contains('article')) {
@@ -820,7 +819,7 @@
             });
         });
         
-        // Добавление тегов        
+        // Add tags       
         function addTagsToArticle (tag1, tag2, article) {
             
             if (article.classList.contains('article')) {
@@ -859,7 +858,7 @@
             addTagsToArticle('<h1>', '</h1>', document.activeElement);
         });
         
-        // Для всех insertions-кнопок
+        // For all insertions buttons
         document.querySelectorAll('.insertions-panel-button').forEach((button) => {
             button.addEventListener('mouseup', () => {
                 activeArticle.article.focus();
@@ -867,7 +866,7 @@
             })
         });
         
-        // Получить процент скролла
+        // Get scroll percent
         function getScrollPercent() {
             let doc = document.documentElement;
             let body = document.body;
@@ -877,7 +876,7 @@
             return Math.ceil((doc[top]||body[top]) / ((doc[height]||body[height]) - doc.clientHeight) * 100);
         }
         
-        // Отобразить процент скролла
+        // Display scroll percent
         window.addEventListener('scroll', function() {
             let scrollPercent = getScrollPercent();
             
@@ -885,7 +884,7 @@
             document.querySelector('.scroll-score').style.background = `linear-gradient(to right, rgba(250,143,56,1) 0%, rgba(250,143,56,1) ${scrollPercent}%, rgba(255,255,255,1) ${scrollPercent}%, rgba(255,255,255,1) 100%)`;
         });
         
-        //Определить сторону абзаца
+        // Get side of paragraph
         function getArticleSide (article) {
             if (article.classList.contains('article-left')) {
                 return 'left';
@@ -896,7 +895,7 @@
             return false;
         }
         
-        // Узнать номер абзаца по счёту
+        // Get paragraph index
         function getArticleIndex (article) {
             let articleSide = getArticleSide(article);
             let articlesArray = document.querySelectorAll('.article-' + articleSide);
@@ -910,7 +909,7 @@
             return false;
         }
         
-        // Узнать номер элемента по счёту
+        // Get element index
         function getElementIndex (element, selector) {
             let elementsArray = document.querySelectorAll(selector);
             
@@ -923,7 +922,7 @@
             return false;
         }
         
-        //Найти дочерний элемент по классу
+        // Find child by class
         function findChildByClass (element, childClass) {
             let elementChildren = element.childNodes;
             let result;
@@ -939,7 +938,7 @@
             return result;
         }
         
-        // Добавить пустую пару абзацев в конец
+        // Add couple of empty paragraphs to the end
         function appendTerminalEmptyArticles () {
             let clonedArticleCouple = document.querySelectorAll('.article-couple')[0].cloneNode(true);
             let leftArticle = findChildByClass(findChildByClass(clonedArticleCouple, 'left'), 'article-left');
@@ -952,7 +951,7 @@
             recountArticleNumbers();
         }
         
-        // Удалить пустые абзацы в конце
+        // Delete empty paragraphs in the end
         function deleteTerminalEmptyArticles () {
             let articleCouples = document.querySelectorAll('.article-couple');
             let leftArticles = document.querySelectorAll('.article-left');
@@ -967,7 +966,7 @@
             
         }
         
-        // Добавить абзац
+        // Add paragraph
         function addNewArticle (addButton, deleteTerminal = true) {
             appendTerminalEmptyArticles ();
                     
@@ -994,7 +993,7 @@
             });
         }
         
-        // Удалить абзац
+        // Delete paragraph
         function deleteArticle (deleteButton, deleteTerminal = true) {
             let buttonIndex = getElementIndex(deleteButton, '.delete-article-button');
             let side = buttonIndex % 2 === 0 ? 'left' : 'right';
@@ -1021,7 +1020,7 @@
             });
         }
         
-        // Объединение абзацев
+        // Concatenate paragraphs
         function concatenateArticles (glue='') {
             let targetArticle = document.activeElement;
             if (!targetArticle.classList.contains('article')) {
@@ -1057,7 +1056,7 @@
             });
         });
         
-        // Разделение абзаца надвое
+        // Divide paragraphs
         function divideArticle () {
             let targetArticle = document.activeElement;
             if (!targetArticle.classList.contains('article')) {
@@ -1104,7 +1103,7 @@
             });
         }
         
-        // Удаление абзацев по индексам
+        // Delete paragraphs by indexes
         function deleteArticlesByIndexes (index1, index2) {
             
             let minIndex = Math.min(index1, index2);
@@ -1126,7 +1125,7 @@
             deleteArticlesByIndexes (index1, index2);
         });
         
-        // Сдвиг абзацев по индексам
+        // Shift paragraphs by indexes
         function shiftArticles (index1, index2) {
             if (!index1 || !index2 || index1 === index2) {
                 return false;
@@ -1148,15 +1147,7 @@
             
             let targetArticlesArray = document.querySelectorAll('.article-' + side);
             
-            console.log('Articles count: ' + targetArticlesArray.length - 1);
-            console.log('difference: ' + difference);
-            console.log('-----------------------------')
-            
             for (let i = targetArticlesArray.length - 1; i >= maxIndex; i--) {
-                console.log('Target article: ' + i);
-                console.log('Source article: ' + (i - difference));
-                console.log('-----------------------------')
-                
                 targetArticlesArray[i].value = targetArticlesArray[i - difference].value;
             }
             
