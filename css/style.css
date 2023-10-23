@@ -83,7 +83,7 @@ input::-moz-placeholder{
 	flex: 5;
 }
 
-.article-couple {
+.paragraph-couple {
 	display: flex;
 	flex-direction: raw;
 	align-items: stretch;
@@ -99,24 +99,24 @@ input::-moz-placeholder{
 	align-items: stretch;
 }
 
-.article1, .article2 {
+.paragraph1, .paragraph2 {
 	background-color: #ECEFF4;
 }
 
-.article-panel, .addDelete {
+.paragraph-panel, .addDelete {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 	color: white;
 }
 
-.article-button {
+.paragraph-button {
 	cursor: pointer;
 	height: 20px;
 	width: 20px;
 }
 
-.articles-count {
+.paragraphs-count {
 	cursor: default;
 	color: #FA9038;
 	font-size: 0.9rem;
@@ -136,7 +136,7 @@ input::-moz-placeholder{
 	text-align: center;
 }
 
-.article-number {
+.paragraph-number {
 	display: block;
 	-moz-user-select: none;
 	-khtml-user-select: none;
@@ -147,7 +147,7 @@ input::-moz-placeholder{
 	text-align: center;
 }
 
-.article-number-bookmark {
+.paragraph-number-bookmark {
 	background-color: #D56305;
 }
 
@@ -216,7 +216,7 @@ h1 {
 	display: inline-flex;
 }
 
-.article-indexes-container {
+.paragraph-indexes-container {
 	display: flex;
 	flex-direction: column;
 }
@@ -258,12 +258,12 @@ h1 {
 	opacity: 0.6;
 }
 
-.article-index {
+.paragraph-index {
 	height: 17px;
 	border: none;
 }
 
-.article {
+.paragraph {
 	display: block;
 	text-align: left;
 	font-size: 1.4em;

@@ -80,36 +80,36 @@
             
             // Beginning of the big condition "if both books are selected"
             if (@$_GET['book1'] != "" and @$_GET['book2'] != "" and @$_GET['book1'] != @$_GET['book2']):
-                $BOOK1PATH = "books/" . iconv('UTF-8', 'cp1251', stripslashes($_GET['book1']));
-                $BOOK2PATH = "books/" . iconv('UTF-8', 'cp1251', stripslashes($_GET['book2']));
+                $bookPath1 = "books/" . iconv('UTF-8', 'cp1251', stripslashes($_GET['book1']));
+                $bookPath2 = "books/" . iconv('UTF-8', 'cp1251', stripslashes($_GET['book2']));
                 
-                $BOOK1CONT = file_get_contents($BOOK1PATH);
-                $BOOK2CONT = file_get_contents($BOOK2PATH);
-                $BOOK1 = preg_split("/[\r]*[\n]+/", $BOOK1CONT);
-                $BOOK2 = preg_split("/[\r]*[\n]+/", $BOOK2CONT);
+                $bookContent1 = file_get_contents($bookPath1);
+                $bookContent2 = file_get_contents($bookPath2);
+                $book1 = preg_split("/[\r]*[\n]+/", $bookContent1);
+                $book2 = preg_split("/[\r]*[\n]+/", $bookContent2);
                 
                 $arr1 = Array();
                 $a = -1;
-                for ($i = 0; $i < count($BOOK1); $i++) {
-                    if (strlen(trim($BOOK1[$i])) != 0) {
+                for ($i = 0; $i < count($book1); $i++) {
+                    if (strlen(trim($book1[$i])) != 0) {
                         $a++;
-                        $arr1[$a] = $BOOK1[$i];
+                        $arr1[$a] = $book1[$i];
                     }
                 }
 
                 $arr2 = Array();
                 $a = -1;
-                for ($i = 0; $i < count($BOOK2); $i++) {
-                    if (strlen(trim($BOOK2[$i])) != 0) {
+                for ($i = 0; $i < count($book2); $i++) {
+                    if (strlen(trim($book2[$i])) != 0) {
                         $a++;
-                        $arr2[$a] = $BOOK2[$i];
+                        $arr2[$a] = $book2[$i];
                     }
                 }
                 // Counting the longest book
                 if (count($arr1) > count($arr2)) {
-                    $MORE = count($arr1);
+                    $longestBookLength = count($arr1);
                 } else {
-                    $MORE = count($arr2);
+                    $longestBookLength = count($arr2);
                 }
                     
                 // Getting the bookmark number
@@ -134,29 +134,29 @@
                 $lang2 = end($lang2);
                 
                 // Beginning of the loop displaying couples of paragraphs
-                for ($i = 0; $i < $MORE; $i++):
-                    $bookmarkClass = ($bookmark == $i) ? ' article-number-bookmark' : '';
+                for ($i = 0; $i < $longestBookLength; $i++):
+                    $bookmarkClass = ($bookmark == $i) ? ' paragraph-number-bookmark' : '';
         ?>
-            <div class="article-couple">
+            <div class="paragraph-couple">
                 <div class="left">
-                    <div class="article-panel panel-left">
-                        <p class="article-number article-number-left<?=$bookmarkClass?>" onclick="setArticleIndex(this.innerText, 'left')"><?=$i?></p>
+                    <div class="paragraph-panel panel-left">
+                        <p class="paragraph-number paragraph-number-left<?=$bookmarkClass?>" onclick="setParagraphIndex(this.innerText, 'left')"><?=$i?></p>
                         <div class="addDelete">
-                            <img class="article-button add-article-button" src="img/add.png" onclick="addNewArticle(this)" />
-                            <img class="article-button delete-article-button" src="img/delete.png" onclick="deleteArticle(this)" />
+                            <img class="paragraph-button add-paragraph-button" src="img/add.png" onclick="addNewParagraph(this)" />
+                            <img class="paragraph-button delete-paragraph-button" src="img/delete.png" onclick="deleteParagraph(this)" />
                         </div>
                     </div>
-                    <textarea lang="<?=$lang1?>" class="article article-left" contenteditable="true"><?=@$arr1[$i]?></textarea>
+                    <textarea lang="<?=$lang1?>" class="paragraph paragraph-left" contenteditable="true"><?=@$arr1[$i]?></textarea>
                 </div>
                     
                 <div class="right">
-                    <textarea lang="<?=$lang2?>" class="article article-right" contenteditable="true"><?=@$arr2[$i]?></textarea>
+                    <textarea lang="<?=$lang2?>" class="paragraph paragraph-right" contenteditable="true"><?=@$arr2[$i]?></textarea>
                     
-                    <div class="article-panel article-panel-right">
-                        <p class="article-number article-number-right<?=$bookmarkClass?>" onclick="setArticleIndex(this.innerText, 'right')"><?=$i?></p>
+                    <div class="paragraph-panel paragraph-panel-right">
+                        <p class="paragraph-number paragraph-number-right<?=$bookmarkClass?>" onclick="setParagraphIndex(this.innerText, 'right')"><?=$i?></p>
                         <div class="addDelete">
-                            <img class="article-button add-article-button" src="img/add.png" onclick="addNewArticle(this)" />
-                            <img class="article-button delete-article-button" src="img/delete.png" onclick="deleteArticle(this)" />
+                            <img class="paragraph-button add-paragraph-button" src="img/add.png" onclick="addNewParagraph(this)" />
+                            <img class="paragraph-button delete-paragraph-button" src="img/delete.png" onclick="deleteParagraph(this)" />
                         </div>
                     </div>
                 </div>
@@ -234,16 +234,16 @@
 
         <div class="edition-panel panel">
             <div class="division-concatenation-edition-panel subpanel">
-                <button class="panel-button division-panel-button" title="Divide paragraph" onmousedown="divideArticle()">
+                <button class="panel-button division-panel-button" title="Divide paragraph" onmousedown="divideParagraph()">
                     <img class="panel-button-img" src="img/division.png" />
                 </button>
-                <button class="panel-button concatenation-panel-button" title="Concatenate paragraphs" onmousedown="concatenateArticles('')">
+                <button class="panel-button concatenation-panel-button" title="Concatenate paragraphs" onmousedown="concatenateParagraphs('')">
                     <img class="panel-button-img" src="img/concatenation.png" />
                 </button>
-                <button class="panel-button concatenation-panel-button" title="Concatenate paragraphs with space" onmousedown="concatenateArticles(' ')">
+                <button class="panel-button concatenation-panel-button" title="Concatenate paragraphs with space" onmousedown="concatenateParagraphs(' ')">
                     <img class="panel-button-img" src="img/concatenation_space.png" />
                 </button>
-                <button class="panel-button concatenation-panel-button" title="Concatenate paragraphs with <delimiter>" onmousedown="concatenateArticles('<delimiter>')">
+                <button class="panel-button concatenation-panel-button" title="Concatenate paragraphs with <delimiter>" onmousedown="concatenateParagraphs('<delimiter>')">
                     <img class="panel-button-img" src="img/concatenation_delimiter.png" />
                 </button>
             </div>
@@ -271,10 +271,10 @@
             
         <div class="manipulations-panel panel">
             <div class="shift-area subpanel">
-                <div class="article-indexes-container">
-                    <input type="text" class="article-index" rows="1" size="2" placeholder="№" value="<?=@$bookmark?>" />
+                <div class="paragraph-indexes-container">
+                    <input type="text" class="paragraph-index" rows="1" size="2" placeholder="№" value="<?=@$bookmark?>" />
                     <hr />
-                    <input type="text" class="article-index" rows="1" size="2" placeholder="№"/>
+                    <input type="text" class="paragraph-index" rows="1" size="2" placeholder="№"/>
                 </div>
                 <button class="panel-button shift-panel-button" title="Shift">
                     <img class="panel-button-img" src="img/shift.png" />
@@ -285,7 +285,7 @@
             </div>
             
             <div class="score-panel panel subpanel">
-                <button class="panel-button aim-button" onclick="aimAtArticle()" title="To current position">
+                <button class="panel-button aim-button" onclick="focusOnParagraph()" title="To current position">
                     <img class="panel-button-img" src="img/focus.png" />
                 </button>
                 <button class="panel-button bookmark-panel-button" title="Set bookmark">
@@ -299,7 +299,7 @@
                     <p class="slash">
                         /
                     </p>
-                    <p class="articles-count">
+                    <p class="paragraphs-count">
                         -
                     </p>
                 </div>
@@ -333,25 +333,25 @@
         const outputBase = `${saveDir}/${bookID}_${lang1}_${lang2}`
         
         // Get original array
-        function getArticlesArray (side = 'left') {
-            let articles = document.querySelectorAll('.article-' + side);
-            let articlesArray = Array();
+        function getParagraphsArray (side = 'left') {
+            let paragraphs = document.querySelectorAll('.paragraph-' + side);
+            let paragraphsArray = Array();
             
-            for (let i = 0; i < articles.length; i++) {
-                articlesArray[i] = articles[i].value;
+            for (let i = 0; i < paragraphs.length; i++) {
+                paragraphsArray[i] = paragraphs[i].value;
             }
             
-            return articlesArray;
+            return paragraphsArray;
         }
 
         // Get text, left or right
         function getText (side = 'left') {
-            return getArticlesArray(side).join('\n');
+            return getParagraphsArray(side).join('\n');
         }
         
         // Adjusting textarea height
         function fixTextArea () {
-            let textareaNeeded = document.querySelectorAll('.article');
+            let textareaNeeded = document.querySelectorAll('.paragraph');
             
             function fixTextareaSize(textarea) {
                 textarea.style.height = '0px';
@@ -373,13 +373,13 @@
         // Adjusting height of adjacent textareas
         function alignSiblingTextareas (index = 'all') {
             if (index === 'all') {
-                let articleCouplesNumber = document.querySelectorAll('.article-couple').length;
-                for (let i = 0; i < articleCouplesNumber; i++) {
+                let paragraphCouplesNumber = document.querySelectorAll('.paragraph-couple').length;
+                for (let i = 0; i < paragraphCouplesNumber; i++) {
                     alignSiblingTextareas(i);
                 }
             } else {
-                let textareaLeft = document.querySelectorAll('.article-left')[index];
-                let textareaRight = document.querySelectorAll('.article-right')[index];
+                let textareaLeft = document.querySelectorAll('.paragraph-left')[index];
+                let textareaRight = document.querySelectorAll('.paragraph-right')[index];
                 
                 let textareaLeftHeight = textareaLeft.offsetHeight;
                 let textareaRightHeight = textareaRight.offsetHeight;
@@ -394,11 +394,11 @@
         
         alignSiblingTextareas();
         
-        document.querySelectorAll('.article').forEach((article) => {
-            article.addEventListener('input', () => {
-                let articleIndex = getArticleIndex(article);
+        document.querySelectorAll('.paragraph').forEach((paragraph) => {
+            paragraph.addEventListener('input', () => {
+                let paragraphIndex = getParagraphIndex(paragraph);
                 
-                alignSiblingTextareas(articleIndex);
+                alignSiblingTextareas(paragraphIndex);
                 document.querySelectorAll('.panel-button').forEach((button) => {
                     button.classList.remove('save-not-needed');
                 });
@@ -418,79 +418,37 @@
             addMainAreaPaddingBottom();
         });
         
-        // Get author
-        function getAuthor (side = 'left') {
-            let authorArray = getArticlesArray(side)[0].split(",");
-            let authorSplit = [];
-            let author = "";
-            for (let i = 0; i < authorArray.length; i++) {
-                authorSplit = authorArray[i].split(" ");
-                author = author + authorSplit[authorSplit.length - 1];
-                for (let j = 0; j < authorSplit.length - 1; j++) {
-                    author = author.trim() + ' ' + authorSplit[j];
-                }
-                if (i !== authorArray.length - 1) {
-                    author = author +  ", ";
-                }
-            }
-            
-            return author;
-        }
-        
-        // Get title
-        function getTitle (side = 'left') {
-            let titleArray = getArticlesArray(side)[1].split("<delimiter>");
-            let title = titleArray[0].split("<h1>").join("").split("</h1>").join("");
-            return title;
-        }
-        
-        function getTitleRest (side = 'left') {
-            let titleRest = getArticlesArray(side)[1].split("<delimiter>")[1];
-            
-            if (!titleRest) {
-                titleRest = '';
-            }
-            
-            return titleRest;
-        }
-        
-        // Get file name
-        function getFileName (type = '') {
-            let space = type ? '_' : '';
-            return bookID + '_' + getBookLang(1) + '_' + getBookLang(2) + space + type;
-        }
-        
         // Focus on a given paragraph
-        function aimAtArticle() {
-            let targetArticleNumber = document.querySelectorAll('.article-index')[0].value;
-            let targetArticle = document.querySelectorAll('.article-left')[targetArticleNumber];
-            if (targetArticle) {
-                targetArticle.scrollIntoView();
+        function focusOnParagraph () {
+            let targetParagraphNumber = document.querySelectorAll('.paragraph-index')[0].value;
+            let targetParagraph = document.querySelectorAll('.paragraph-left')[targetParagraphNumber];
+            if (targetParagraph) {
+                targetParagraph.scrollIntoView();
             }
         }
         
         // Set bookmark
         function setBookmark () {
-            let targetArticleNumber = document.querySelectorAll('.article-index')[0].value;
-                if (Number.isInteger(Number(targetArticleNumber))) {
+            let targetParagraphNumber = document.querySelectorAll('.paragraph-index')[0].value;
+                if (Number.isInteger(Number(targetParagraphNumber))) {
                     let bookmarkNumber = document.querySelector('.bookmark-number');
-                    bookmarkNumber.innerHTML = targetArticleNumber;
+                    bookmarkNumber.innerHTML = targetParagraphNumber;
                     
                     $.ajax({
                         url: "save_bookmark.php",
                         type: "POST",
-                        data: ({bookmark_number: targetArticleNumber}),
+                        data: ({bookmark_number: targetParagraphNumber}),
                         dataType: "html"
                     });
                     
-                    document.querySelectorAll('.article-number').forEach((item) => {
-                        item.classList.remove('article-number-bookmark');
+                    document.querySelectorAll('.paragraph-number').forEach((item) => {
+                        item.classList.remove('paragraph-number-bookmark');
                     });
                     
-                    let targetLeftNumber = document.querySelectorAll('.article-number-left')[targetArticleNumber];
-                    let targetRightNumber = document.querySelectorAll('.article-number-right')[targetArticleNumber];
+                    let targetLeftNumber = document.querySelectorAll('.paragraph-number-left')[targetParagraphNumber];
+                    let targetRightNumber = document.querySelectorAll('.paragraph-number-right')[targetParagraphNumber];
                     [targetLeftNumber, targetRightNumber].forEach((item) => {
-                        item.classList.add('article-number-bookmark');
+                        item.classList.add('paragraph-number-bookmark');
                     });
                 }
         }
@@ -512,35 +470,35 @@
             setBookmark();
         });
         
-        function setArticleIndex (articleIndex, side = 'left') {
+        function setParagraphIndex (paragraphIndex, side = 'left') {
             if (side === 'left') {
-                document.querySelectorAll('.article-index')[0].value = articleIndex;
+                document.querySelectorAll('.paragraph-index')[0].value = paragraphIndex;
             }
             
             if (side === 'right') {
-                document.querySelectorAll('.article-index')[1].value = articleIndex;
+                document.querySelectorAll('.paragraph-index')[1].value = paragraphIndex;
             }
         }
         
         // Focus on bookmark
         function focusBookmark () {
             let bookmarkNumber = Number(document.querySelector('.bookmark-number').innerHTML);
-            let targetArticleCouple = document.querySelectorAll('.article-couple')[bookmarkNumber];
-            targetArticleCouple.scrollIntoView();
+            let targetParagraphCouple = document.querySelectorAll('.paragraph-couple')[bookmarkNumber];
+            targetParagraphCouple.scrollIntoView();
         }
         document.querySelector('.bookmark-number').addEventListener('click', focusBookmark);
         
         // Recalculation of paragraph numbers
-        function recountArticleNumbers () {
-            let leftArticleNumbers = document.querySelectorAll('.article-number-left');
-            let rightArticleNumbers = document.querySelectorAll('.article-number-right');
+        function recountParagraphNumbers () {
+            let leftParagraphNumbers = document.querySelectorAll('.paragraph-number-left');
+            let rightParagraphNumbers = document.querySelectorAll('.paragraph-number-right');
             
-            for (let i = 0; i < $(".article-couple").length; i++) {
-                leftArticleNumbers[i].innerText = i;
-                rightArticleNumbers[i].innerText = i;
+            for (let i = 0; i < $('.paragraph-couple').length; i++) {
+                leftParagraphNumbers[i].innerText = i;
+                rightParagraphNumbers[i].innerText = i;
             }
             
-            showArticlesCount();
+            showParagraphsCount();
         }
         
         // Get language code
@@ -593,20 +551,20 @@
         
         // Save sources
         function saveSources () {
-            if (document.querySelectorAll('.article-couple').length === 0) {
+            if (document.querySelectorAll('.paragraph-couple').length === 0) {
                 return false;
             }
             
-            let articlesArrayLeft = getArticlesArray('left').join('\n');
-            let articlesArrayRight = getArticlesArray('right').join('\n');
+            let paragraphsArrayLeft = getParagraphsArray('left').join('\n');
+            let paragraphsArrayRight = getParagraphsArray('right').join('\n');
             
             $.ajax({
                 url: "save_sources.php",
                 type: "POST",
                 data: ({address1: sessionStorage.getItem('book1-file-address'),
                         address2: sessionStorage.getItem('book2-file-address'),
-                        text1: articlesArrayLeft,
-                        text2: articlesArrayRight
+                        text1: paragraphsArrayLeft,
+                        text2: paragraphsArrayRight
                 }),
                 dataType: "html"
             });
@@ -686,31 +644,31 @@
         });
         
         // Displaying number of paragraphs
-        function showArticlesCount () {
-            let articlesCountArea = document.querySelector('.articles-count');
-            let articlesArrayLeft = getArticlesArray('left');
-            let articlesArrayRight = getArticlesArray('right');
-            let maxArticlesCount = Math.max(articlesArrayLeft.length, articlesArrayRight.length);
+        function showParagraphsCount () {
+            let paragraphsCountArea = document.querySelector('.paragraphs-count');
+            let paragraphsArrayLeft = getParagraphsArray('left');
+            let paragraphsArrayRight = getParagraphsArray('right');
+            let maxParagraphsCount = Math.max(paragraphsArrayLeft.length, paragraphsArrayRight.length);
             
-            if (maxArticlesCount === 0) {
-                articlesCountArea.innerText = '-';
+            if (maxParagraphsCount === 0) {
+                paragraphsCountArea.innerText = '-';
             } else {
-                articlesCountArea.innerText = maxArticlesCount - 1;
+                paragraphsCountArea.innerText = maxParagraphsCount - 1;
             }
         }
         
-        showArticlesCount ();
+        showParagraphsCount();
 
         // Class for the selected paragraph
-        class focusedArticle {
-            constructor(article, start = 0, end = 0) {
-                this._article = article;
+        class focusedParagraph {
+            constructor(paragraph, start = 0, end = 0) {
+                this._paragraph = paragraph;
                 this._start = start;
                 this._end = end;
             }
             
-            get article() {
-                return this._article;
+            get paragraph() {
+                return this._paragraph;
             }
             
             get start() {
@@ -721,8 +679,8 @@
                 return this._end;
             }
             
-            set article(value) {
-                this._article = value;
+            set paragraph(value) {
+                this._paragraph = value;
             }
             
             set start(value) {
@@ -734,38 +692,38 @@
             }
         }
         
-        let activeArticle = new focusedArticle();
+        let activeParagraph = new focusedParagraph();
         
         // Get image number
         function getImgNumber () {
-            let targetArticle = document.activeElement;
+            let targetParagraph = document.activeElement;
             let joinedText = '';
             
-            if (targetArticle.classList.contains('article-left')) {
-                joinedText = getArticlesArray('left').join('');
-            } else if (targetArticle.classList.contains('article-right')) {
-                joinedText = getArticlesArray('right').join('');
+            if (targetParagraph.classList.contains('paragraph-left')) {
+                joinedText = getParagraphsArray('left').join('');
+            } else if (targetParagraph.classList.contains('paragraph-right')) {
+                joinedText = getParagraphsArray('right').join('');
             }
             
             return joinedText.split('<img').length;
         }
         
         // Inserting text to paragraph instead of selected text 
-        function insertTextToArticle (text, article, isInserted = true) {
+        function insertTextToParagraph (text, paragraph, isInserted = true) {
             
-            if (article.classList.contains('article') && text !== '') {
-                let start = article.selectionStart;
-                let end = isInserted ? article.selectionEnd : start;
-                let articleValue = article.value;
+            if (paragraph.classList.contains('paragraph') && text !== '') {
+                let start = paragraph.selectionStart;
+                let end = isInserted ? paragraph.selectionEnd : start;
+                let paragraphValue = paragraph.value;
                 
-                let part1 = articleValue.substring(0, start);
-                let part3 = articleValue.substring(end);
+                let part1 = paragraphValue.substring(0, start);
+                let part3 = paragraphValue.substring(end);
                 
-                article.value = part1 + text + part3;
+                paragraph.value = part1 + text + part3;
                 
-                activeArticle.article = article;
-                activeArticle.start = isInserted ? start : start + text.length;
-                activeArticle.end = start + text.length;
+                activeParagraph.paragraph = paragraph;
+                activeParagraph.start = isInserted ? start : start + text.length;
+                activeParagraph.end = start + text.length;
                 
                 fixTextArea();
                 alignSiblingTextareas();
@@ -792,50 +750,50 @@
         // Get selected text
         function getSelectedText () {
             
-            if (document.activeElement.classList.contains('article')) {
-                let article = document.activeElement;
-                let start = article.selectionStart;
-                let end = article.selectionEnd;
-                let articleContent = article.value;
-                return articleContent.substring(start, end);
+            if (document.activeElement.classList.contains('paragraph')) {
+                let paragraph = document.activeElement;
+                let start = paragraph.selectionStart;
+                let end = paragraph.selectionEnd;
+                let paragraphContent = paragraph.value;
+                return paragraphContent.substring(start, end);
             } else {
                 return false;
             }
         }
         
         document.querySelector('.delimiter-panel-button').addEventListener('mousedown', () => {
-            insertTextToArticle('<delimiter>', document.activeElement, false);
+            insertTextToParagraph('<delimiter>', document.activeElement, false);
         });
         
         document.querySelector('.paste-img-panel-button').addEventListener('mousedown', () => {
             let targetElement = document.activeElement;
-            insertTextToArticle('<img' + getImgNumber(targetElement) + '>', document.activeElement, false);
+            insertTextToParagraph('<img' + getImgNumber(targetElement) + '>', document.activeElement, false);
         });
         
         document.querySelector('.case-panel-button').addEventListener('mousedown', () => {
-            insertTextToArticle(switchCase(getSelectedText()), document.activeElement);
+            insertTextToParagraph(switchCase(getSelectedText()), document.activeElement);
             document.querySelectorAll('.panel-button').forEach((button) => {
                 button.classList.remove('save-not-needed');
             });
         });
         
         // Add tags       
-        function addTagsToArticle (tag1, tag2, article) {
+        function addTagsToParagraph (tag1, tag2, paragraph) {
             
-            if (article.classList.contains('article')) {
-                let start = article.selectionStart;
-                let end = article.selectionEnd;
+            if (paragraph.classList.contains('paragraph')) {
+                let start = paragraph.selectionStart;
+                let end = paragraph.selectionEnd;
                 
                 if (start !== end) {
-                    let articleValue = article.value;
-                    let taggedArticleValue = articleValue.substring(0, start) + tag1;
-                    taggedArticleValue += articleValue.substring(start, end) + tag2;
-                    taggedArticleValue += articleValue.substring(end);
-                    article.value = taggedArticleValue;
+                    let paragraphValue = paragraph.value;
+                    let taggedParagraphValue = paragraphValue.substring(0, start) + tag1;
+                    taggedParagraphValue += paragraphValue.substring(start, end) + tag2;
+                    taggedParagraphValue += paragraphValue.substring(end);
+                    paragraph.value = taggedParagraphValue;
                     
-                    activeArticle.article = article;
-                    activeArticle.start = end + tag1.length + tag2.length;
-                    activeArticle.end = end + tag1.length + tag2.length;
+                    activeParagraph.paragraph = paragraph;
+                    activeParagraph.start = end + tag1.length + tag2.length;
+                    activeParagraph.end = end + tag1.length + tag2.length;
                 } else {
                     return false;
                 }
@@ -847,22 +805,22 @@
         }
         
         document.querySelector('.bold-panel-button').addEventListener('mousedown', () => {
-            addTagsToArticle('<b>', '</b>', document.activeElement);
+            addTagsToParagraph('<b>', '</b>', document.activeElement);
         });
         
         document.querySelector('.italic-panel-button').addEventListener('mousedown', () => {
-            addTagsToArticle('<i>', '</i>', document.activeElement);
+            addTagsToParagraph('<i>', '</i>', document.activeElement);
         });
 
         document.querySelector('.heading-panel-button').addEventListener('mousedown', () => {
-            addTagsToArticle('<h1>', '</h1>', document.activeElement);
+            addTagsToParagraph('<h1>', '</h1>', document.activeElement);
         });
         
         // For all insertions buttons
         document.querySelectorAll('.insertions-panel-button').forEach((button) => {
             button.addEventListener('mouseup', () => {
-                activeArticle.article.focus();
-                activeArticle.article.setSelectionRange(activeArticle.start, activeArticle.end);
+                activeParagraph.paragraph.focus();
+                activeParagraph.paragraph.setSelectionRange(activeParagraph.start, activeParagraph.end);
             })
         });
         
@@ -885,23 +843,23 @@
         });
         
         // Get side of paragraph
-        function getArticleSide (article) {
-            if (article.classList.contains('article-left')) {
+        function getParagraphSide (paragraph) {
+            if (paragraph.classList.contains('paragraph-left')) {
                 return 'left';
             }
-            if (article.classList.contains('article-right')) {
+            if (paragraph.classList.contains('paragraph-right')) {
                 return 'right';
             }
             return false;
         }
         
         // Get paragraph index
-        function getArticleIndex (article) {
-            let articleSide = getArticleSide(article);
-            let articlesArray = document.querySelectorAll('.article-' + articleSide);
+        function getParagraphIndex (paragraph) {
+            let paragraphSide = getParagraphSide(paragraph);
+            let paragraphsArray = document.querySelectorAll('.paragraph-' + paragraphSide);
             
-            for (let i = 0; i < articlesArray.length; i++) {
-                if (articlesArray[i] === article) {
+            for (let i = 0; i < paragraphsArray.length; i++) {
+                if (paragraphsArray[i] === paragraph) {
                     return i;
                 }
             }
@@ -939,53 +897,53 @@
         }
         
         // Add couple of empty paragraphs to the end
-        function appendTerminalEmptyArticles () {
-            let clonedArticleCouple = document.querySelectorAll('.article-couple')[0].cloneNode(true);
-            let leftArticle = findChildByClass(findChildByClass(clonedArticleCouple, 'left'), 'article-left');
-            let rightArticle = findChildByClass(findChildByClass(clonedArticleCouple, 'right'), 'article-right');
-            leftArticle.value = '';
-            rightArticle.value = '';
+        function appendTerminalEmptyParagraphs () {
+            let clonedParagraphCouple = document.querySelectorAll('.paragraph-couple')[0].cloneNode(true);
+            let leftParagraph = findChildByClass(findChildByClass(clonedParagraphCouple, 'left'), 'paragraph-left');
+            let rightParagraph = findChildByClass(findChildByClass(clonedParagraphCouple, 'right'), 'paragraph-right');
+            leftParagraph.value = '';
+            rightParagraph.value = '';
             
-            document.querySelector('.main-area').append(clonedArticleCouple);
-            document.querySelector('.main-area').append(clonedArticleCouple);
-            recountArticleNumbers();
+            document.querySelector('.main-area').append(clonedParagraphCouple);
+            document.querySelector('.main-area').append(clonedParagraphCouple);
+            recountParagraphNumbers();
         }
         
         // Delete empty paragraphs in the end
-        function deleteTerminalEmptyArticles () {
-            let articleCouples = document.querySelectorAll('.article-couple');
-            let leftArticles = document.querySelectorAll('.article-left');
-            let rightArticles = document.querySelectorAll('.article-right');
+        function deleteTerminalEmptyParagraphs () {
+            let paragraphCouples = document.querySelectorAll('.paragraph-couple');
+            let leftParagraphs = document.querySelectorAll('.paragraph-left');
+            let rightParagraphs = document.querySelectorAll('.paragraph-right');
             
-            let index = articleCouples.length - 1;
+            let index = paragraphCouples.length - 1;
             
-            while (leftArticles[index].value.trim() === '' && rightArticles[index].value.trim() === '') {
-                articleCouples[index].remove();
+            while (leftParagraphs[index].value.trim() === '' && rightParagraphs[index].value.trim() === '') {
+                paragraphCouples[index].remove();
                 index--;
             }
             
         }
         
         // Add paragraph
-        function addNewArticle (addButton, deleteTerminal = true) {
-            appendTerminalEmptyArticles ();
+        function addNewParagraph (addButton, deleteTerminal = true) {
+            appendTerminalEmptyParagraphs();
                     
-            let buttonIndex = getElementIndex(addButton, '.add-article-button');
+            let buttonIndex = getElementIndex(addButton, '.add-paragraph-button');
             let side = buttonIndex % 2 === 0 ? 'left' : 'right';
-            let articleIndex = side === 'left' ? buttonIndex / 2 : (buttonIndex - 1) / 2;
+            let paragraphIndex = side === 'left' ? buttonIndex / 2 : (buttonIndex - 1) / 2;
             
-            let targetArticlesArray = document.querySelectorAll('.article-' + side);
+            let targetParagraphsArray = document.querySelectorAll('.paragraph-' + side);
             
-            for (let i = targetArticlesArray.length - 1; i > articleIndex; i--) {
-                targetArticlesArray[i].value = targetArticlesArray[i - 1].value;
+            for (let i = targetParagraphsArray.length - 1; i > paragraphIndex; i--) {
+                targetParagraphsArray[i].value = targetParagraphsArray[i - 1].value;
             }
-            targetArticlesArray[articleIndex].value = '';
+            targetParagraphsArray[paragraphIndex].value = '';
             
             fixTextArea();
             alignSiblingTextareas();
             
             if (deleteTerminal) {
-                deleteTerminalEmptyArticles();
+                deleteTerminalEmptyParagraphs();
             }
             
             document.querySelectorAll('.panel-button').forEach((button) => {
@@ -994,57 +952,57 @@
         }
         
         // Delete paragraph
-        function deleteArticle (deleteButton, deleteTerminal = true) {
-            let buttonIndex = getElementIndex(deleteButton, '.delete-article-button');
+        function deleteParagraph (deleteButton, deleteTerminal = true) {
+            let buttonIndex = getElementIndex(deleteButton, '.delete-paragraph-button');
             let side = buttonIndex % 2 === 0 ? 'left' : 'right';
-            let articleIndex = side === 'left' ? buttonIndex / 2 : (buttonIndex - 1) / 2;
+            let paragraphIndex = side === 'left' ? buttonIndex / 2 : (buttonIndex - 1) / 2;
             
-            let targetArticlesArray = document.querySelectorAll('.article-' + side);
+            let targetParagraphsArray = document.querySelectorAll('.paragraph-' + side);
             
-            for (let i = articleIndex; i < targetArticlesArray.length - 1; i++) {
-                targetArticlesArray[i].value = targetArticlesArray[i + 1].value;
+            for (let i = paragraphIndex; i < targetParagraphsArray.length - 1; i++) {
+                targetParagraphsArray[i].value = targetParagraphsArray[i + 1].value;
             }
             
-            targetArticlesArray[targetArticlesArray.length - 1].value = '';
+            targetParagraphsArray[targetParagraphsArray.length - 1].value = '';
             
             fixTextArea();
             alignSiblingTextareas();
             
             if (deleteTerminal) {
-                deleteTerminalEmptyArticles();
+                deleteTerminalEmptyParagraphs();
             }
             
-            showArticlesCount();
+            showParagraphsCount();
             document.querySelectorAll('.panel-button').forEach((button) => {
                 button.classList.remove('save-not-needed');
             });
         }
         
         // Concatenate paragraphs
-        function concatenateArticles (glue='') {
-            let targetArticle = document.activeElement;
-            if (!targetArticle.classList.contains('article')) {
+        function concatenateParagraphs (glue='') {
+            let targetParagraph = document.activeElement;
+            if (!targetParagraph.classList.contains('paragraph')) {
                 return false;
             }
             
-            let articleSide = getArticleSide(targetArticle);
-            let articleIndex = getArticleIndex(targetArticle);
+            let paragraphSide = getParagraphSide(targetParagraph);
+            let paragraphIndex = getParagraphIndex(targetParagraph);
             
-            let cancatenatedArticle = document.querySelectorAll('.article-' + articleSide)[articleIndex + 1]
+            let cancatenatedParagraph = document.querySelectorAll('.paragraph-' + paragraphSide)[paragraphIndex + 1]
             
-            targetArticle.value += glue + cancatenatedArticle.value;
+            targetParagraph.value += glue + cancatenatedParagraph.value;
             
             let deleteButtonIndex;
             
-            if (articleSide === 'left') {
-                deleteButtonIndex = (articleIndex + 1) * 2;
-            } else if (articleSide === 'right') {
-                deleteButtonIndex = (articleIndex + 1) * 2 + 1;
+            if (paragraphSide === 'left') {
+                deleteButtonIndex = (paragraphIndex + 1) * 2;
+            } else if (paragraphSide === 'right') {
+                deleteButtonIndex = (paragraphIndex + 1) * 2 + 1;
             }
-            let deleteButton = document.querySelectorAll('.delete-article-button')[deleteButtonIndex];
+            let deleteButton = document.querySelectorAll('.delete-paragraph-button')[deleteButtonIndex];
             
             deleteButton.click();
-            activeArticle.article = targetArticle;
+            activeParagraph.paragraph = targetParagraph;
             document.querySelectorAll('.panel-button').forEach((button) => {
                 button.classList.remove('save-not-needed');
             });
@@ -1052,49 +1010,49 @@
         
         document.querySelectorAll('.concatenation-panel-button').forEach((button) => {
             button.addEventListener('mouseup', () => {
-                activeArticle.article.focus();
+                activeParagraph.paragraph.focus();
             });
         });
         
         // Divide paragraphs
-        function divideArticle () {
-            let targetArticle = document.activeElement;
-            if (!targetArticle.classList.contains('article')) {
+        function divideParagraph () {
+            let targetParagraph = document.activeElement;
+            if (!targetParagraph.classList.contains('paragraph')) {
                 return false;
             }
             
-            let articleSide = getArticleSide(targetArticle);
-            let articleIndex = getArticleIndex(targetArticle);
+            let paragraphSide = getParagraphSide(targetParagraph);
+            let paragraphIndex = getParagraphIndex(targetParagraph);
             
-            let targetArticlesArray = document.querySelectorAll('.article-' + articleSide);
-            if (articleIndex === targetArticlesArray.length - 1) {
-                appendTerminalEmptyArticles();
+            let targetParagraphsArray = document.querySelectorAll('.paragraph-' + paragraphSide);
+            if (paragraphIndex === targetParagraphsArray.length - 1) {
+                appendTerminalEmptyParagraphs();
             }
             
-            let start = targetArticle.selectionStart;
-            let end = targetArticle.selectionEnd;
+            let start = targetParagraph.selectionStart;
+            let end = targetParagraph.selectionEnd;
             
             if (start != end) {
                 return false;
             }
             
-            substr1 = targetArticle.value.substring(0, start).trim();
-            substr2 = targetArticle.value.substr(start).trim();
+            substr1 = targetParagraph.value.substring(0, start).trim();
+            substr2 = targetParagraph.value.substr(start).trim();
             
             let addButtonIndex;
-            if (articleSide === 'left') {
-                addButtonIndex = (articleIndex + 1) * 2;
-            } else if (articleSide === 'right') {
-                addButtonIndex = (articleIndex + 1) * 2 + 1;
+            if (paragraphSide === 'left') {
+                addButtonIndex = (paragraphIndex + 1) * 2;
+            } else if (paragraphSide === 'right') {
+                addButtonIndex = (paragraphIndex + 1) * 2 + 1;
             }
-            let addButton = document.querySelectorAll('.add-article-button')[addButtonIndex];
+            let addButton = document.querySelectorAll('.add-paragraph-button')[addButtonIndex];
             
-            addNewArticle(addButton, false);
-            targetArticle.value = substr1;
-            document.querySelectorAll('.article-' + articleSide)[articleIndex + 1].value = substr2;
-            deleteTerminalEmptyArticles();
+            addNewParagraph(addButton, false);
+            targetParagraph.value = substr1;
+            document.querySelectorAll('.paragraph-' + paragraphSide)[paragraphIndex + 1].value = substr2;
+            deleteTerminalEmptyParagraphs();
             
-            activeArticle.article = targetArticle;
+            activeParagraph.paragraph = targetParagraph;
             
             fixTextArea();
             alignSiblingTextareas();
@@ -1104,35 +1062,35 @@
         }
         
         // Delete paragraphs by indexes
-        function deleteArticlesByIndexes (index1, index2) {
+        function deleteParagraphsByIndexes (index1, index2) {
             
             let minIndex = Math.min(index1, index2);
             let maxIndex = Math.max(index1, index2);
             
             for (let i = maxIndex; i >= minIndex; i--) {
-                document.querySelectorAll('.article-couple')[i].remove();
+                document.querySelectorAll('.paragraph-couple')[i].remove();
             }
             
-            recountArticleNumbers();
+            recountParagraphNumbers();
             document.querySelectorAll('.panel-button').forEach((button) => {
                 button.classList.remove('save-not-needed');
             });
         }
         
         document.querySelector('.delete-by-index-panel-button').addEventListener('click', () => {
-            let index1 = document.querySelectorAll('.article-index')[0].value;
-            let index2 = document.querySelectorAll('.article-index')[1].value;
-            deleteArticlesByIndexes (index1, index2);
+            let index1 = document.querySelectorAll('.paragraph-index')[0].value;
+            let index2 = document.querySelectorAll('.paragraph-index')[1].value;
+            deleteParagraphsByIndexes(index1, index2);
         });
         
         // Shift paragraphs by indexes
-        function shiftArticles (index1, index2) {
+        function shiftParagraphs (index1, index2) {
             if (!index1 || !index2 || index1 === index2) {
                 return false;
             }
             
-            let articleCouplesCount = document.querySelectorAll('.article-couple').length;
-            if (index1 >= articleCouplesCount || index2 >= articleCouplesCount) {
+            let paragraphCouplesCount = document.querySelectorAll('.paragraph-couple').length;
+            if (index1 >= paragraphCouplesCount || index2 >= paragraphCouplesCount) {
                 return false;
             }
             
@@ -1142,17 +1100,17 @@
             let side = minIndex == index1 ? 'left' : 'right';
             let difference = maxIndex - minIndex;
             for (let i = 0; i < difference; i++) {
-                appendTerminalEmptyArticles();
+                appendTerminalEmptyParagraphs();
             }
             
-            let targetArticlesArray = document.querySelectorAll('.article-' + side);
+            let targetParagraphsArray = document.querySelectorAll('.paragraph-' + side);
             
-            for (let i = targetArticlesArray.length - 1; i >= maxIndex; i--) {
-                targetArticlesArray[i].value = targetArticlesArray[i - difference].value;
+            for (let i = targetParagraphsArray.length - 1; i >= maxIndex; i--) {
+                targetParagraphsArray[i].value = targetParagraphsArray[i - difference].value;
             }
             
             for (let i = maxIndex - 1; i >= minIndex; i--) {
-                targetArticlesArray[i].value = '';
+                targetParagraphsArray[i].value = '';
             }
             
             fixTextArea();
@@ -1163,9 +1121,9 @@
         }
         
         document.querySelector('.shift-panel-button').addEventListener('click', () => {
-            let index1 = document.querySelectorAll('.article-index')[0].value;
-            let index2 = document.querySelectorAll('.article-index')[1].value;
-            shiftArticles (index1, index2);
+            let index1 = document.querySelectorAll('.paragraph-index')[0].value;
+            let index2 = document.querySelectorAll('.paragraph-index')[1].value;
+            shiftParagraphs(index1, index2);
         });
 
         document.addEventListener('keydown', function(event) {
