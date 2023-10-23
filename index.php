@@ -6,7 +6,7 @@
 <head>
     <title>B-Editor</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="author" content="Сниткин Дмитрий">
+    <meta name="author" content="Bilinguator.com">
     <link rel="shortcut icon" href="img/icon.png" />
     <link rel="stylesheet" type="text/css" href="css/style.css" />
     <script defer src="scripts/jquery-3.6.0.min.js"></script>
@@ -22,7 +22,7 @@
                 <label class="book-file-address-label" for="book1-file-address">
                     Book 1
                 </label>
-                <input type="file" class="book-file-address book1-file-address" id="book1-file-address" name="BOOK1">
+                <input type="file" class="book-file-address book1-file-address" id="book1-file-address" name="book1">
             </div>
             <div class="logo">
                 <a href=".">
@@ -33,10 +33,10 @@
                 <label class="book-file-address-label" for="book2-file-address">
                     Book 2
                 </label>
-                <input type="file" class="book-file-address book2-file-address" id="book2-file-address" name="BOOK2">
+                <input type="file" class="book-file-address book2-file-address" id="book2-file-address" name="book2">
             </div>
             <div>
-                <button class="panel-button" type="submit" title="Запустить">
+                <button class="panel-button" type="submit" title="Launch">
                     <img class="panel-button-img" src="img/play.png" />
                 </button>
             </div>
@@ -70,13 +70,13 @@
             $saveBilingualEpubExists = file_exists('bilingual-formats/scripts/save_bilingual_epub.php');
             
             if (@$_GET['book1'] == "" and @$_GET['book2'] != "")
-                echo "<p>Книга 1 не выбрана</p>";
+                echo "<p>Book 1 is not selected.</p>";
             if (@$_GET['book1'] != "" and @$_GET['book2'] == "")
-                echo "<p>Книга 2 не выбрана</p>";
+                echo "<p>Book 2 is not selected.</p>";
             if (@$_GET['book1'] == "" and @$_GET['book2'] == "")
-                echo "<p>Книги не выбраны</p>";
+                echo "<p>Books are not selected.</p>";
             if (@$_GET['book1'] == @$_GET['book2'] and @$_GET['book1'] != "" and @$_GET['book2'] != "")
-                echo "<p>Вы выбрали одну и ту же книгу дважды</p>";
+                echo "<p>The same book is selected twice!</p>";
             
             // Beginning of the big condition "if both books are selected"
             if (@$_GET['book1'] != "" and @$_GET['book2'] != "" and @$_GET['book1'] != @$_GET['book2']):
@@ -170,13 +170,13 @@
     <footer class="footer">
         <div class="file-panel panel">
             <div class="save-panel panel subpanel">
-                <button class="panel-button save-sources-panel-button save-not-needed" name="save" title="Сохранить исходники">
+                <button class="panel-button save-sources-panel-button save-not-needed" name="save" title="Save source files">
                     <img class="panel-button-img" src="img/save.png" />
                 </button>
                 <?php
                     if ($printBilingualPDFExists || $bilingualFormatsExists):
                 ?>
-                <button class="panel-button save-all-formats-panel-button"  title="Сохранить все форматы">
+                <button class="panel-button save-all-formats-panel-button"  title="Save in all formats">
                     <img class="panel-button-img" src="img/save_all_formats.png" />
                 </button>
                 <?php
@@ -184,21 +184,21 @@
                     if ($bilingualFormatsExists):
                         if ($saveBilingualTxtExists) :
                 ?>
-                <button class="panel-button save-txt-panel-button" title="Сохранить txt">
+                <button class="panel-button save-txt-panel-button" title="Save txt">
                     <img class="panel-button-img" src="img/save_txt.png" />
                 </button>
                 <?php
                         endif;
                         if ($saveBilingualFb2Exists) :
                 ?>
-                <button class="panel-button save-fb2-panel-button" title="Сохранить fb2">
+                <button class="panel-button save-fb2-panel-button" title="Save fb2">
                     <img class="panel-button-img" src="img/save_fb2.png" />
                 </button>
                 <?php
                         endif;
                         if ($saveBilingualEpubExists) :
                 ?>
-                <button class="panel-button save-epub-panel-button" title="Сохранить epub">
+                <button class="panel-button save-epub-panel-button" title="Save epub">
                     <img class="panel-button-img" src="img/save_epub.png" />
                 </button>
                 <?php
@@ -213,14 +213,14 @@
                 <?php
                 if ($printBilingualColsExists):
                 ?>
-                    <button class="panel-button cols-panel-button" title="Столбцы">
+                    <button class="panel-button cols-panel-button" title="Print columns PDF">
                         <img class="panel-button-img" src="img/cols.png" />
                     </button>
                 <?php
                 endif;
                 if ($printBilingualRowsExists):
                 ?>
-                <button class="panel-button rows-panel-button" title="Строки">
+                <button class="panel-button rows-panel-button" title="Print rows PDF">
                     <img class="panel-button-img" src="img/rows.png" />
                 </button>
                 <?php
@@ -234,36 +234,36 @@
 
         <div class="edition-panel panel">
             <div class="division-concatenation-edition-panel subpanel">
-                <button class="panel-button division-panel-button" title="Разделить абзац" onmousedown="divideArticle()">
+                <button class="panel-button division-panel-button" title="Divide paragraph" onmousedown="divideArticle()">
                     <img class="panel-button-img" src="img/division.png" />
                 </button>
-                <button class="panel-button concatenation-panel-button" title="Объединить абзацы" onmousedown="concatenateArticles('')">
+                <button class="panel-button concatenation-panel-button" title="Concatenate paragraphs" onmousedown="concatenateArticles('')">
                     <img class="panel-button-img" src="img/concatenation.png" />
                 </button>
-                <button class="panel-button concatenation-panel-button" title="Объединить абзацы через пробел" onmousedown="concatenateArticles(' ')">
+                <button class="panel-button concatenation-panel-button" title="Concatenate paragraphs with space" onmousedown="concatenateArticles(' ')">
                     <img class="panel-button-img" src="img/concatenation_space.png" />
                 </button>
-                <button class="panel-button concatenation-panel-button" title="Объединить абзацы через <delimiter>" onmousedown="concatenateArticles('<delimiter>')">
+                <button class="panel-button concatenation-panel-button" title="Concatenate paragraphs with <delimiter>" onmousedown="concatenateArticles('<delimiter>')">
                     <img class="panel-button-img" src="img/concatenation_delimiter.png" />
                 </button>
             </div>
             <div class="insertions-edition-panel subpanel">
-                <button class="panel-button insertions-panel-button heading-panel-button" title="Заголовок">
+                <button class="panel-button insertions-panel-button heading-panel-button" title="Title">
                     <img class="panel-button-img" src="img/h.png" />
                 </button>
-                <button class="panel-button insertions-panel-button bold-panel-button" title="Полужирный">
+                <button class="panel-button insertions-panel-button bold-panel-button" title="Bold">
                     <img class="panel-button-img" src="img/b.png" />
                 </button>
-                <button class="panel-button insertions-panel-button italic-panel-button" title="Курсив">
+                <button class="panel-button insertions-panel-button italic-panel-button" title="Italic">
                     <img class="panel-button-img" src="img/i.png" />
                 </button>
-                <button class="panel-button insertions-panel-button delimiter-panel-button" title="Разделитель">
+                <button class="panel-button insertions-panel-button delimiter-panel-button" title="Add delimiter">
                     <img class="panel-button-img" src="img/delimiter.png" />
                 </button>
-                <button class="panel-button insertions-panel-button paste-img-panel-button" title="Вставить картинку">
+                <button class="panel-button insertions-panel-button paste-img-panel-button" title="Insert illustration">
                     <img class="panel-button-img" src="img/img.png" />
                 </button>
-                <button class="panel-button insertions-panel-button case-panel-button" title="Изменить регистр">
+                <button class="panel-button insertions-panel-button case-panel-button" title="Switch case">
                     <img class="panel-button-img" src="img/case.png" />
                 </button>
             </div>
@@ -276,19 +276,19 @@
                     <hr />
                     <input type="text" class="article-index" rows="1" size="2" placeholder="№"/>
                 </div>
-                <button class="panel-button shift-panel-button" title="Сдвинуть">
+                <button class="panel-button shift-panel-button" title="Shift">
                     <img class="panel-button-img" src="img/shift.png" />
                 </button>
-                <button class="panel-button delete-by-index-panel-button" title="Удалить">
+                <button class="panel-button delete-by-index-panel-button" title="Delete">
                     <img class="panel-button-img" src="img/delete_by_index.png" />
                 </button>
             </div>
             
             <div class="score-panel panel subpanel">
-                <button class="panel-button aim-button" onclick="aimAtArticle()" title="К текущей позиции">
+                <button class="panel-button aim-button" onclick="aimAtArticle()" title="To current position">
                     <img class="panel-button-img" src="img/focus.png" />
                 </button>
-                <button class="panel-button bookmark-panel-button" title="Закладка">
+                <button class="panel-button bookmark-panel-button" title="Set bookmark">
                     <img class="panel-button-img" src="img/bookmark.png" />
                 </button>
                 <div class="stats">
