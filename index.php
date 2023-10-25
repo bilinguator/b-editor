@@ -233,20 +233,6 @@
         </div>
 
         <div class="edition-panel panel">
-            <div class="division-concatenation-edition-panel subpanel">
-                <button class="panel-button division-panel-button" title="Divide paragraph" onmousedown="divideParagraph()">
-                    <img class="panel-button-img" src="img/division.png" />
-                </button>
-                <button class="panel-button concatenation-panel-button" title="Concatenate paragraphs" onmousedown="concatenateParagraphs('')">
-                    <img class="panel-button-img" src="img/concatenation.png" />
-                </button>
-                <button class="panel-button concatenation-panel-button" title="Concatenate paragraphs with space" onmousedown="concatenateParagraphs(' ')">
-                    <img class="panel-button-img" src="img/concatenation_space.png" />
-                </button>
-                <button class="panel-button concatenation-panel-button" title="Concatenate paragraphs with <delimiter>" onmousedown="concatenateParagraphs('<delimiter>')">
-                    <img class="panel-button-img" src="img/concatenation_delimiter.png" />
-                </button>
-            </div>
             <div class="insertions-edition-panel subpanel">
                 <button class="panel-button insertions-panel-button heading-panel-button" title="Title">
                     <img class="panel-button-img" src="img/h.png" />
@@ -260,16 +246,31 @@
                 <button class="panel-button insertions-panel-button delimiter-panel-button" title="Add delimiter">
                     <img class="panel-button-img" src="img/delimiter.png" />
                 </button>
-                <button class="panel-button insertions-panel-button paste-img-panel-button" title="Insert illustration">
-                    <img class="panel-button-img" src="img/img.png" />
-                </button>
                 <button class="panel-button insertions-panel-button case-panel-button" title="Switch case">
                     <img class="panel-button-img" src="img/case.png" />
+                </button>
+                <button class="panel-button insertions-panel-button paste-img-panel-button" title="Add illustration">
+                    <img class="panel-button-img" src="img/img.png" />
                 </button>
             </div>
         </div>
             
         <div class="manipulations-panel panel">
+            <div class="division-concatenation-edition-panel subpanel">
+                <button class="panel-button division-panel-button" title="Divide paragraph" onmousedown="divideParagraph()">
+                    <img class="panel-button-img" src="img/division.png" />
+                </button>
+                <button class="panel-button concatenation-panel-button" title="Concatenate paragraphs" onmousedown="concatenateParagraphs('')">
+                    <img class="panel-button-img" src="img/concatenation.png" />
+                </button>
+                <button class="panel-button concatenation-panel-button" title="Concatenate paragraphs via space" onmousedown="concatenateParagraphs(' ')">
+                    <img class="panel-button-img" src="img/concatenation_space.png" />
+                </button>
+                <button class="panel-button concatenation-panel-button" title="Concatenate paragraphs via <delimiter>" onmousedown="concatenateParagraphs('<delimiter>')">
+                    <img class="panel-button-img" src="img/concatenation_delimiter.png" />
+                </button>
+            </div>
+
             <div class="shift-area subpanel">
                 <div class="paragraph-indexes-container">
                     <input type="text" class="paragraph-index" rows="1" size="2" placeholder="№" value="<?=@$bookmark?>" />
