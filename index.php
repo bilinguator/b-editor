@@ -111,16 +111,6 @@
                 } else {
                     $longestBookLength = count($arr2);
                 }
-                    
-                // Getting the bookmark number
-                $bookmarkFileAddress = 'books/bookmark.txt';
-                $bookmark = '0';
-                if (file_exists($bookmarkFileAddress)) {
-                    $bookmarkFileContents = file_get_contents($bookmarkFileAddress);
-                    if (is_numeric($bookmarkFileContents)) {
-                        $bookmark = file_get_contents($bookmarkFileAddress);
-                    }
-                }
                 
                 // Getting languages
                 $lang1 = explode('.', $_GET['book1'])[0];
@@ -132,6 +122,19 @@
                 $lang2 = explode(' ', $lang2)[0];
                 $lang2 = explode('_', $lang2);
                 $lang2 = end($lang2);
+                
+                // Getting the bookmark number
+                $book1Name = explode('.', @$_GET['book1'])[0];
+                $book1Name = explode(' ', $book1Name)[0];
+                $bookmarkFileAddress = "books/bookmarks/bookmark_{$book1Name}_{$lang2}.txt";
+                $bookmark = '0';
+                
+                if (file_exists($bookmarkFileAddress)) {
+                    $bookmarkFileContents = file_get_contents($bookmarkFileAddress);
+                    if (is_numeric($bookmarkFileContents)) {
+                        $bookmark = file_get_contents($bookmarkFileAddress);
+                    }
+                }
 
                 $br = '&#013;';
                 
@@ -333,7 +336,8 @@
         const illustrationsDir = 'books/illustrations';
         const coverPath = `covers/${lang1}.png`
         const saveDir = 'books/saved'
-        const outputBase = `${saveDir}/${bookID}_${lang1}_${lang2}`
+        const fileNameBase = `${bookID}_${lang1}_${lang2}`;
+        const outputBase = `${saveDir}/${fileNameBase}`
         
         // Get original array
         function getParagraphsArray (side = 'left') {
@@ -433,27 +437,29 @@
         // Set bookmark
         function setBookmark () {
             let targetParagraphNumber = document.querySelectorAll('.paragraph-index')[0].value;
-                if (Number.isInteger(Number(targetParagraphNumber))) {
-                    let bookmarkNumber = document.querySelector('.bookmark-number');
-                    bookmarkNumber.innerHTML = targetParagraphNumber;
-                    
-                    $.ajax({
-                        url: "save_bookmark.php",
-                        type: "POST",
-                        data: ({bookmark_number: targetParagraphNumber}),
-                        dataType: "html"
-                    });
-                    
-                    document.querySelectorAll('.paragraph-number').forEach((item) => {
-                        item.classList.remove('paragraph-number-bookmark');
-                    });
-                    
-                    let targetLeftNumber = document.querySelectorAll('.paragraph-number-left')[targetParagraphNumber];
-                    let targetRightNumber = document.querySelectorAll('.paragraph-number-right')[targetParagraphNumber];
-                    [targetLeftNumber, targetRightNumber].forEach((item) => {
-                        item.classList.add('paragraph-number-bookmark');
-                    });
-                }
+            
+            if (Number.isInteger(Number(targetParagraphNumber))) {
+                let bookmarkNumber = document.querySelector('.bookmark-number');
+                bookmarkNumber.innerHTML = targetParagraphNumber;
+                
+                $.ajax({
+                    url: "save_bookmark.php",
+                    type: "POST",
+                    data: ({bookmark_number: targetParagraphNumber,
+                            file_name_base: fileNameBase}),
+                    dataType: "html"
+                });
+                
+                document.querySelectorAll('.paragraph-number').forEach((item) => {
+                    item.classList.remove('paragraph-number-bookmark');
+                });
+                
+                let targetLeftNumber = document.querySelectorAll('.paragraph-number-left')[targetParagraphNumber];
+                let targetRightNumber = document.querySelectorAll('.paragraph-number-right')[targetParagraphNumber];
+                [targetLeftNumber, targetRightNumber].forEach((item) => {
+                    item.classList.add('paragraph-number-bookmark');
+                });
+            }
         }
 
         function saveAllFormats () {
