@@ -14,6 +14,7 @@ Developed by [Bilinguator.com](https://bilinguator.com/).
 |[Editing paragraphs contents](#editing-paragraphs-contents)|
 |[Adding illustrations](#adding-illustrations)|
 |[Saving files](#saving-files)|
+|[Keyboard shortcuts](#keyboard-shortcuts)|
 |[Precautions](#precautions)|
 
 ## Getting started
@@ -55,13 +56,13 @@ Each paragraph is marked with an index. When clicking an index of a left paragra
 
 ### Setting bookmark
 
-The bookmark is one index corresponding to a paragraphs couple. To set a bookmark, click to the index of the left paragraph of the current couple or type it to the upper textarea in the toolbar. Click the Bookmark button (<img src="img/bookmark.png" alt="Bookmark button" height="25"/>) to set the bookmark. The bookmark index is saved to the `books/bookmark.txt` file. While the file exists, the bookmark is set all the time of using B-Editor, and it is displayed on the right side of the toolbar as `bookmark`/`total paragraphs count` ratio (<img src="img/for_readme/ratio.png" alt="Progress ratio" height="25"/>).
+The bookmark is one index corresponding to a paragraphs couple. To set a bookmark, click to the index of the left paragraph of the current couple or type it to the upper textarea in the toolbar. Click the Bookmark button (<img src="img/bookmark.png" alt="Bookmark button" height="25"/>) to set the bookmark. The bookmark index is saved to the [`books/bookmarks`](books/bookmarks) folder named as `bookmark_<BOOK_ID>_<LANG1>_<LANG2>.txt`. While the file exists, the bookmark is set all the time of using B-Editor, and it is displayed on the right side of the toolbar as `bookmark`/`total paragraphs count` ratio (<img src="img/for_readme/ratio.png" alt="Progress ratio" height="25"/>).
 
 ### Moving focus to a paragraph
 
 Click the `bookmark` part of the `bookmark`/`total paragraphs count` ratio to move to the bookmarked paragraph.
 
-To move to any other paragraph, type the index of the paragraph in the upper textarea and click the `To current position` button (<img src="img/focus.png" alt="To current position button" height="20px"/>). Look at the progress bar to orient (<img src="img/for_readme/progress.png" alt="Progress bar" height="25"/>).
+To move to any other paragraph, type the index of the paragraph in the upper textarea and click the `To current position` button (<img src="img/focus.png" alt="To current position button" height="25px"/>). Look at the progress bar to orient (<img src="img/for_readme/progress.png" alt="Progress bar" height="25"/>).
 
 ### Shifting paragraphs
 
@@ -77,7 +78,7 @@ To divide a paragraph into two, click the position in its content wherein the pa
 
 ### Concatenating paragraphs
 
-To concatenate two following paragraphs of one side, click on the first of it in any place. Press the `Concatenate paragraphs` button (<img src="img/concatenation.png" alt="Concatenate paragraphs button" height="25"/>). The two paragraphs will be merged via empty string. To concatenate two paragraphs via space character or `<delimiter>` press `Concatenate paragraphs via space` (<img src="img/concatenation_space.png" alt="Concatenate paragraphs via space button" height="25"/>) or `Concatenate paragraphs via <delimiter>` (<img src="img/concatenation_delimiter.png" alt="Concatenate paragraphs via <delimiter> button" height="25"/>) button respectively.
+To concatenate two following paragraphs of one side, click on the first of it in any place. Press the `Concatenate paragraphs` button (<img src="img/concatenation.png" alt="Concatenate paragraphs button" height="25"/>). The two paragraphs will be merged via empty string. To concatenate two paragraphs via space character or `<delimiter>` press `Concatenate paragraphs via space` (<img src="img/concatenation_space.png" alt="Concatenate paragraphs via space button" height="25"/>) or `Concatenate paragraphs via delimiter` (<img src="img/concatenation_delimiter.png" alt="Concatenate paragraphs via delimiter button" height="25"/>) button respectively.
 
 ## Editing paragraphs contents
 
@@ -127,6 +128,25 @@ Clone the git repository of [Print Bilingual PDF](https://github.com/bilinguator
 |<img src="img/rows.png" alt="Save fb2" height="25"/>|Print rows PDF|
 
 If both [Bilingual formats](https://github.com/bilinguator/bilingual-formats/) and [Print Bilingual PDF](https://github.com/bilinguator/print-bilingual-pdf) are in the B-Editor root directory, the `Save in all formats` button (<img src="img/save_all_formats.png" alt="Save in all formats" height="25"/>) appears. Press it to save your bilingual book in TXT, FB2, EPUB formats and print the PDF in columns and rows.
+
+## Keyboard shortcuts
+
+|Keys|Button|Action|
+|--|--|--|
+|`Ctrl`+`S`|<img src="img/save.png" alt="Save source files" height="25"/>|Save source files|
+|`Ctrl`+`P`|<img src="img/cols.png" alt="Save txt" height="25"/>|Print columns PDF|
+|`Ctrl`+`Shift`+`P`|<img src="img/rows.png" alt="Save fb2" height="25"/>|Print rows PDF|
+|`Ctrl`+`H`|<img src="img/h.png" alt="Title button" height="25"/>|Title|
+|`Ctrl`+`B`|<img src="img/b.png" alt="Bold button" height="25"/>|Bold (when text in paragraph selected)|
+|`Ctrl`+`I`|<img src="img/i.png" alt="Italic button" height="25"/>|Italic|
+|`Ctrl`+`,`|<img src="img/delimiter.png" alt="Add delimiter button" height="25"/>|Add delimiter|
+|`Ctrl`+`L`|<img src="img/img.png" alt="Add illustration button" height="25"/>|Add illustration|
+|`Ctrl`+`D`|<img src="img/division.png" alt="Divide paragraph button" height="25"/>|Divide paragraph|
+|`Ctrl`+`M`|<img src="img/concatenation.png" alt="Concatenate paragraphs button" height="25"/>|Concatenate paragraphs|
+|`Ctrl`+`U`|<img src="img/concatenation_space.png" alt="Concatenate paragraphs via space button" height="25"/>|Concatenate paragraphs via space|
+|`Ctrl`+`Y`|<img src="img/concatenation_delimiter.png" alt="Concatenate paragraphs via delimiter button" height="25"/>|Concatenate paragraphs via delimiter|
+|`Ctrl`+`O`|<img src="img/focus.png" alt="To current position button" height="25px"/>|To current position|
+|`Ctrl`+`B`|<img src="img/bookmark.png" alt="Bookmark button" height="25"/>|Set bookmark (when no text in paragraph selected)|
 
 ## Precautions
 

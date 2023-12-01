@@ -111,16 +111,6 @@
                 } else {
                     $longestBookLength = count($arr2);
                 }
-                    
-                // Getting the bookmark number
-                $bookmarkFileAddress = 'books/bookmark.txt';
-                $bookmark = '0';
-                if (file_exists($bookmarkFileAddress)) {
-                    $bookmarkFileContents = file_get_contents($bookmarkFileAddress);
-                    if (is_numeric($bookmarkFileContents)) {
-                        $bookmark = file_get_contents($bookmarkFileAddress);
-                    }
-                }
                 
                 // Getting languages
                 $lang1 = explode('.', $_GET['book1'])[0];
@@ -132,6 +122,21 @@
                 $lang2 = explode(' ', $lang2)[0];
                 $lang2 = explode('_', $lang2);
                 $lang2 = end($lang2);
+                
+                // Getting the bookmark number
+                $book1Name = explode('.', @$_GET['book1'])[0];
+                $book1Name = explode(' ', $book1Name)[0];
+                $bookmarkFileAddress = "books/bookmarks/bookmark_{$book1Name}_{$lang2}.txt";
+                $bookmark = '0';
+                
+                if (file_exists($bookmarkFileAddress)) {
+                    $bookmarkFileContents = file_get_contents($bookmarkFileAddress);
+                    if (is_numeric($bookmarkFileContents)) {
+                        $bookmark = file_get_contents($bookmarkFileAddress);
+                    }
+                }
+
+                $br = '&#013;';
                 
                 // Beginning of the loop displaying couples of paragraphs
                 for ($i = 0; $i < $longestBookLength; $i++):
@@ -170,7 +175,7 @@
     <footer class="footer">
         <div class="file-panel panel">
             <div class="save-panel panel subpanel">
-                <button class="panel-button save-sources-panel-button save-not-needed" name="save" title="Save source files">
+                <button class="panel-button save-sources-panel-button save-not-needed" name="save" title="Save source files<?=$br?>(Ctrl+S)">
                     <img class="panel-button-img" src="img/save.png" />
                 </button>
                 <?php
@@ -213,14 +218,14 @@
                 <?php
                 if ($printBilingualColsExists):
                 ?>
-                    <button class="panel-button cols-panel-button" title="Print columns PDF">
+                    <button class="panel-button cols-panel-button" title="Print columns PDF<?=$br?>(Ctrl+P)">
                         <img class="panel-button-img" src="img/cols.png" />
                     </button>
                 <?php
                 endif;
                 if ($printBilingualRowsExists):
                 ?>
-                <button class="panel-button rows-panel-button" title="Print rows PDF">
+                <button class="panel-button rows-panel-button" title="Print rows PDF<?=$br?>(Ctrl+Shift+P)">
                     <img class="panel-button-img" src="img/rows.png" />
                 </button>
                 <?php
@@ -234,22 +239,22 @@
 
         <div class="edition-panel panel">
             <div class="insertions-edition-panel subpanel">
-                <button class="panel-button insertions-panel-button heading-panel-button" title="Title">
+                <button class="panel-button insertions-panel-button heading-panel-button" title="Title<?=$br?>(Ctrl+H)">
                     <img class="panel-button-img" src="img/h.png" />
                 </button>
-                <button class="panel-button insertions-panel-button bold-panel-button" title="Bold">
+                <button class="panel-button insertions-panel-button bold-panel-button" title="Bold<?=$br?>(Ctrl+B)">
                     <img class="panel-button-img" src="img/b.png" />
                 </button>
-                <button class="panel-button insertions-panel-button italic-panel-button" title="Italic">
+                <button class="panel-button insertions-panel-button italic-panel-button" title="Italic<?=$br?>(Ctrl+I)">
                     <img class="panel-button-img" src="img/i.png" />
                 </button>
-                <button class="panel-button insertions-panel-button delimiter-panel-button" title="Add delimiter">
+                <button class="panel-button insertions-panel-button delimiter-panel-button" title="Add delimiter<?=$br?>(Ctrl+,)">
                     <img class="panel-button-img" src="img/delimiter.png" />
                 </button>
                 <button class="panel-button insertions-panel-button case-panel-button" title="Switch case">
                     <img class="panel-button-img" src="img/case.png" />
                 </button>
-                <button class="panel-button insertions-panel-button paste-img-panel-button" title="Add illustration">
+                <button class="panel-button insertions-panel-button paste-img-panel-button" title="Add illustration<?=$br?>(Ctrl+L)">
                     <img class="panel-button-img" src="img/img.png" />
                 </button>
             </div>
@@ -257,16 +262,16 @@
             
         <div class="manipulations-panel panel">
             <div class="division-concatenation-edition-panel subpanel">
-                <button class="panel-button division-panel-button" title="Divide paragraph" onmousedown="divideParagraph()">
+                <button class="panel-button division-panel-button" title="Divide paragraph<?=$br?>(Ctrl+D)" onmousedown="divideParagraph()">
                     <img class="panel-button-img" src="img/division.png" />
                 </button>
-                <button class="panel-button concatenation-panel-button" title="Concatenate paragraphs" onmousedown="concatenateParagraphs('')">
+                <button class="panel-button concatenation-panel-button" title="Concatenate paragraphs<?=$br?>(Ctrl+M)" onmousedown="concatenateParagraphs('')">
                     <img class="panel-button-img" src="img/concatenation.png" />
                 </button>
-                <button class="panel-button concatenation-panel-button" title="Concatenate paragraphs via space" onmousedown="concatenateParagraphs(' ')">
+                <button class="panel-button concatenation-panel-button" title="Concatenate paragraphs via space<?=$br?>(Ctrl+U)" onmousedown="concatenateParagraphs(' ')">
                     <img class="panel-button-img" src="img/concatenation_space.png" />
                 </button>
-                <button class="panel-button concatenation-panel-button" title="Concatenate paragraphs via <delimiter>" onmousedown="concatenateParagraphs('<delimiter>')">
+                <button class="panel-button concatenation-panel-button" title="Concatenate paragraphs via delimiter<?=$br?>(Ctrl+Y)" onmousedown="concatenateParagraphs('<delimiter>')">
                     <img class="panel-button-img" src="img/concatenation_delimiter.png" />
                 </button>
             </div>
@@ -286,10 +291,10 @@
             </div>
             
             <div class="score-panel panel subpanel">
-                <button class="panel-button aim-button" onclick="focusOnParagraph()" title="To current position">
+                <button class="panel-button aim-button" onclick="focusOnParagraph()" title="To current position<?=$br?>(Ctrl+O)">
                     <img class="panel-button-img" src="img/focus.png" />
                 </button>
-                <button class="panel-button bookmark-panel-button" title="Set bookmark">
+                <button class="panel-button bookmark-panel-button" title="Set bookmark<?=$br?>(Ctrl+B)">
                     <img class="panel-button-img" src="img/bookmark.png" />
                 </button>
                 <div class="stats">
@@ -331,7 +336,8 @@
         const illustrationsDir = 'books/illustrations';
         const coverPath = `covers/${lang1}.png`
         const saveDir = 'books/saved'
-        const outputBase = `${saveDir}/${bookID}_${lang1}_${lang2}`
+        const fileNameBase = `${bookID}_${lang1}_${lang2}`;
+        const outputBase = `${saveDir}/${fileNameBase}`
         
         // Get original array
         function getParagraphsArray (side = 'left') {
@@ -431,30 +437,32 @@
         // Set bookmark
         function setBookmark () {
             let targetParagraphNumber = document.querySelectorAll('.paragraph-index')[0].value;
-                if (Number.isInteger(Number(targetParagraphNumber))) {
-                    let bookmarkNumber = document.querySelector('.bookmark-number');
-                    bookmarkNumber.innerHTML = targetParagraphNumber;
-                    
-                    $.ajax({
-                        url: "save_bookmark.php",
-                        type: "POST",
-                        data: ({bookmark_number: targetParagraphNumber}),
-                        dataType: "html"
-                    });
-                    
-                    document.querySelectorAll('.paragraph-number').forEach((item) => {
-                        item.classList.remove('paragraph-number-bookmark');
-                    });
-                    
-                    let targetLeftNumber = document.querySelectorAll('.paragraph-number-left')[targetParagraphNumber];
-                    let targetRightNumber = document.querySelectorAll('.paragraph-number-right')[targetParagraphNumber];
-                    [targetLeftNumber, targetRightNumber].forEach((item) => {
-                        item.classList.add('paragraph-number-bookmark');
-                    });
-                }
+            
+            if (Number.isInteger(Number(targetParagraphNumber))) {
+                let bookmarkNumber = document.querySelector('.bookmark-number');
+                bookmarkNumber.innerHTML = targetParagraphNumber;
+                
+                $.ajax({
+                    url: "save_bookmark.php",
+                    type: "POST",
+                    data: ({bookmark_number: targetParagraphNumber,
+                            file_name_base: fileNameBase}),
+                    dataType: "html"
+                });
+                
+                document.querySelectorAll('.paragraph-number').forEach((item) => {
+                    item.classList.remove('paragraph-number-bookmark');
+                });
+                
+                let targetLeftNumber = document.querySelectorAll('.paragraph-number-left')[targetParagraphNumber];
+                let targetRightNumber = document.querySelectorAll('.paragraph-number-right')[targetParagraphNumber];
+                [targetLeftNumber, targetRightNumber].forEach((item) => {
+                    item.classList.add('paragraph-number-bookmark');
+                });
+            }
         }
-        
-        document.querySelector('.save-all-formats-panel-button').addEventListener('click', () => {
+
+        function saveAllFormats () {
             saveSources();
             saveTxt();
             saveFb2();
@@ -465,6 +473,10 @@
             document.querySelector('.save-txt-panel-button').classList.add('save-not-needed');
             document.querySelector('.save-fb2-panel-button').classList.add('save-not-needed');
             document.querySelector('.save-epub-panel-button').classList.add('save-not-needed');
+        }
+        
+        document.querySelector('.save-all-formats-panel-button').addEventListener('click', () => {
+            saveAllFormats();
         });
         
         document.querySelector('.bookmark-panel-button').addEventListener('click', () => {
@@ -767,8 +779,7 @@
         });
         
         document.querySelector('.paste-img-panel-button').addEventListener('mousedown', () => {
-            let targetElement = document.activeElement;
-            insertTextToParagraph('<img' + getImgNumber(targetElement) + '>', document.activeElement, false);
+            insertTextToParagraph('<img' + getImgNumber(document.activeElement) + '>', document.activeElement, false);
         });
         
         document.querySelector('.case-panel-button').addEventListener('mousedown', () => {
@@ -1127,14 +1138,122 @@
             shiftParagraphs(index1, index2);
         });
 
+        // Keyboard shortcuts
+        // Save source texts (Ctrl+S)
         document.addEventListener('keydown', function(event) {
             if (event.ctrlKey && event.keyCode === 83) {
                 event.preventDefault();
                 saveSources();
             }
         });
+
+        // Divide paragraph (Ctrl+D)
+        document.addEventListener('keydown', function(event) {
+            if (event.ctrlKey && event.keyCode === 68) {
+                event.preventDefault();
+                divideParagraph();
+            }
+        });
+        
+        // Set bookmark (Ctrl+B)
+        document.addEventListener('keydown', function(event) {
+            if (event.ctrlKey && event.keyCode === 66) {
+                if (document.activeElement.classList.contains('paragraph')) {
+                    addTagsToParagraph('<b>', '</b>', document.activeElement);
+                } else {
+                    event.preventDefault();
+                    setBookmark();
+                }
+            }
+        });
+
+        // Title (Ctrl+H)
+        document.addEventListener('keydown', function(event) {
+            if (event.ctrlKey && event.keyCode === 72) {
+                if (document.activeElement.classList.contains('paragraph')) {
+                    event.preventDefault();
+                    addTagsToParagraph('<h1>', '</h1>', document.activeElement);
+                }
+            }
+        });
+
+        // Italic (Ctrl+I)
+        document.addEventListener('keydown', function(event) {
+            if (event.ctrlKey && event.keyCode === 73) {
+                if (document.activeElement.classList.contains('paragraph')) {
+                    event.preventDefault();
+                    addTagsToParagraph('<i>', '</i>', document.activeElement);
+                }
+            }
+        });
+        
+        // Concatenate paragraphs (Ctrl+M)
+        document.addEventListener('keydown', function(event) {
+            if (event.ctrlKey && event.keyCode === 77) {
+                event.preventDefault();
+                concatenateParagraphs('');
+            }
+        });
+        
+        // Concatenate paragraphs via delimiter (Ctrl+Y)
+        document.addEventListener('keydown', function(event) {
+            if (event.ctrlKey && event.keyCode === 89) {
+                event.preventDefault();
+                concatenateParagraphs('<delimiter>');
+            }
+        });
+        
+        // Concatenate paragraphs via space(Ctrl+U)
+        document.addEventListener('keydown', function(event) {
+            if (event.ctrlKey && event.keyCode === 85) {
+                event.preventDefault();
+                concatenateParagraphs(' ');
+            }
+        });
+        
+        // Add delimiter (Ctrl+,)
+        document.addEventListener('keydown', function(event) {
+            if (event.ctrlKey && event.keyCode === 188) {
+                event.preventDefault();
+                insertTextToParagraph('<delimiter>', document.activeElement, false);
+            }
+        });
+        
+        // Add illustration (Ctrl+L)
+        document.addEventListener('keydown', function(event) {
+            if (event.ctrlKey && event.keyCode === 76) {
+                event.preventDefault();
+                insertTextToParagraph('<img' + getImgNumber(document.activeElement) + '>', document.activeElement, false);
+            }
+        });
+        
+        // To current position (Enter)
+        document.addEventListener('keydown', function(event) {
+            if (event.keyCode === 13 && document.activeElement.classList.contains('paragraph-index')) {
+                event.preventDefault();
+                focusOnParagraph();
+            }
+        });
+
+        // To current position (Ctrl+O)
+        document.addEventListener('keydown', function(event) {
+            if (event.ctrlKey && event.keyCode === 79) {
+                event.preventDefault();
+                focusOnParagraph();
+            }
+        });
+        
+        // Print PDF columns (Ctrl+P) and rows (Ctrl+Shift+P)
+        document.addEventListener('keydown', function(event) {
+            if (event.ctrlKey && event.keyCode === 80) {
+                event.preventDefault();
+                if (event.shiftKey) {
+                    printRows();
+                } else {
+                    printCols();
+                }
+            }
+        });
     </script>
-    
-    </div>
 </body>
 </html>
