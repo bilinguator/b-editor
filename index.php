@@ -334,7 +334,7 @@
         const lang2 = getBookLang(2);
 
         const illustrationsDir = 'books/illustrations';
-        const coverPath = `covers/${lang1}.png`
+        const coverPath = `books/covers/${lang1}.png`
         const saveDir = 'books/saved'
         const fileNameBase = `${bookID}_${lang1}_${lang2}`;
         const outputBase = `${saveDir}/${fileNameBase}`
