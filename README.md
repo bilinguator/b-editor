@@ -84,7 +84,7 @@ To concatenate two following paragraphs of one side, click on the first of it in
 
 ### Adding tags
 
-Select text in a paragraph. Press `Title` (<img src="img/h.png" alt="Title button" height="25"/>), `Bold` (<img src="img/b.png" alt="Bold button" height="25"/>) or `Italic` (<img src="img/i.png" alt="Italic button" height="25"/>) button to tag the selected text with `<h1><\h1>`, `<b><\b>` or `<i><\i>` respectively.
+Select text in a paragraph. Press `Title` (<img src="img/h.png" alt="Title button" height="25"/>), `Bold` (<img src="img/b.png" alt="Bold button" height="25"/>) or `Italic` (<img src="img/i.png" alt="Italic button" height="25"/>) button to tag the selected text with `<h1></h1>`, `<b></b>` or `<i></i>` respectively.
 
 ### Adding delimiter
 
