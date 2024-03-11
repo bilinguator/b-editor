@@ -56,7 +56,7 @@ Each paragraph is marked with an index. When clicking an index of a left paragra
 
 ### Setting bookmark
 
-The bookmark is one index corresponding to a paragraphs couple. To set a bookmark, click to the index of the left paragraph of the current couple or type it to the upper textarea in the toolbar. Click the Bookmark button (<img src="img/bookmark.png" alt="Bookmark button" height="25"/>) to set the bookmark. The bookmark index is saved to the [`books/bookmarks`](books/bookmarks) folder named as `bookmark_<BOOK_ID>_<LANG1>_<LANG2>.txt`. While the file exists, the bookmark is set all the time of using B-Editor, and it is displayed on the right side of the toolbar as `bookmark`/`total paragraphs count` ratio (<img src="img/for_readme/ratio.png" alt="Progress ratio" height="25"/>).
+The bookmark is one index corresponding to a paragraphs couple. To set a bookmark, click to the index of the left paragraph of the current couple or type it to the upper textarea in the toolbar. Click the Bookmark button (<img src="img/bookmark.png" alt="Bookmark button" height="25"/>) to set the bookmark. The bookmark index is saved to the [`books/bookmarks`](books/bookmarks) folder named as `bookmark_<BOOK_ID>_<LANG1>_<LANG2>.<BOOK1_EXTENSION>`. While the file exists, the bookmark is set all the time of using B-Editor, and it is displayed on the right side of the toolbar as `bookmark`/`total paragraphs count` ratio (<img src="img/for_readme/ratio.png" alt="Progress ratio" height="25"/>).
 
 ### Moving focus to a paragraph
 
@@ -84,7 +84,7 @@ To concatenate two following paragraphs of one side, click on the first of it in
 
 ### Adding tags
 
-Select text in a paragraph. Press `Title` (<img src="img/h.png" alt="Title button" height="25"/>), `Bold` (<img src="img/b.png" alt="Bold button" height="25"/>) or `Italic` (<img src="img/i.png" alt="Italic button" height="25"/>) button to tag the selected text with `<h1><\h1>`, `<b><\b>` or `<i><\i>` respectively.
+Select text in a paragraph. Press `Title` (<img src="img/h.png" alt="Title button" height="25"/>), `Bold` (<img src="img/b.png" alt="Bold button" height="25"/>) or `Italic` (<img src="img/i.png" alt="Italic button" height="25"/>) button to tag the selected text with `<h1></h1>`, `<b></b>` or `<i></i>` respectively.
 
 ### Adding delimiter
 

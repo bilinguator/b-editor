@@ -79,9 +79,9 @@
                 echo "<p>The same book is selected twice!</p>";
             
             // Beginning of the big condition "if both books are selected"
-            if (@$_GET['book1'] != "" and @$_GET['book2'] != "" and @$_GET['book1'] != @$_GET['book2']):
-                $bookPath1 = "books/" . iconv('UTF-8', 'cp1251', stripslashes($_GET['book1']));
-                $bookPath2 = "books/" . iconv('UTF-8', 'cp1251', stripslashes($_GET['book2']));
+            if (@$_GET['book1'] != '' and @$_GET['book2'] != '' and @$_GET['book1'] != @$_GET['book2']):
+                $bookPath1 = 'books/' . iconv('UTF-8', 'cp1251', stripslashes($_GET['book1']));
+                $bookPath2 = 'books/' . iconv('UTF-8', 'cp1251', stripslashes($_GET['book2']));
                 
                 $bookContent1 = file_get_contents($bookPath1);
                 $bookContent2 = file_get_contents($bookPath2);
@@ -126,7 +126,9 @@
                 // Getting the bookmark number
                 $book1Name = explode('.', @$_GET['book1'])[0];
                 $book1Name = explode(' ', $book1Name)[0];
-                $bookmarkFileAddress = "books/bookmarks/bookmark_{$book1Name}_{$lang2}.txt";
+                $book1Extension = explode('.', $bookPath1);
+                $book1Extension = end($book1Extension);
+                $bookmarkFileAddress = "books/bookmarks/bookmark_{$book1Name}_{$lang2}.{$book1Extension}";
                 $bookmark = '0';
                 
                 if (file_exists($bookmarkFileAddress)) {
@@ -320,8 +322,8 @@
         </div>
     </footer>
     <script type="text/javascript">
-        let book1FileAddress = document.querySelector('.book1-file-address');
-        let book2FileAddress = document.querySelector('.book2-file-address');
+        const book1FileAddress = document.querySelector('.book1-file-address');
+        const book2FileAddress = document.querySelector('.book2-file-address');
         
         [book1FileAddress, book2FileAddress].forEach((item) => {
                 item.addEventListener('change', () => {
@@ -446,7 +448,8 @@
                     url: "save_bookmark.php",
                     type: "POST",
                     data: ({bookmark_number: targetParagraphNumber,
-                            file_name_base: fileNameBase}),
+                            file_name_base: fileNameBase,
+                            file1_extension: getBookExtension(1)}),
                     dataType: "html"
                 });
                 
@@ -530,6 +533,11 @@
             let semanticPart = fileName.split('.')[0].split(' ')[0];
             let bookID = semanticPart.slice(0, semanticPart.lastIndexOf('_'));
             return bookID;
+        }
+        
+        function getBookExtension (bookIndex = 1) {
+            let fileAddress = sessionStorage.getItem('book' + bookIndex + '-file-address');
+            return fileAddress.split('.').slice(-1)[0];
         }
         
         document.querySelector('.cols-panel-button').addEventListener('click', () => {
