@@ -76,6 +76,8 @@ To delete several paragraphs on both sides, enter the  ‘from’ and ‘to’ i
 
 To divide a paragraph into two, click the position in its content wherein the paragraph must be divided. Press the `Divide paragraph` button (<img src="img/division.png" alt="Divide paragraph button" height="25"/>).
 
+To divide a paragraph into several paragraphs, add newline symbols, wherein the paragraph must be divided. Press the `Divide paragraph by newline` button (<img src="img/division_by_newline.png" alt="Divide paragraph button" height="25"/>).
+
 ### Concatenating paragraphs
 
 To concatenate two following paragraphs of one side, click on the first of it in any place. Press the `Concatenate paragraphs` button (<img src="img/concatenation.png" alt="Concatenate paragraphs button" height="25"/>). The two paragraphs will be merged via empty string. To concatenate two paragraphs via space character or `<delimiter>` press `Concatenate paragraphs via space` (<img src="img/concatenation_space.png" alt="Concatenate paragraphs via space button" height="25"/>) or `Concatenate paragraphs via delimiter` (<img src="img/concatenation_delimiter.png" alt="Concatenate paragraphs via delimiter button" height="25"/>) button respectively.
@@ -142,6 +144,7 @@ If both [Bilingual formats](https://github.com/bilinguator/bilingual-formats/) a
 |`Ctrl`+`,`|<img src="img/delimiter.png" alt="Add delimiter button" height="25"/>|Add delimiter|
 |`Ctrl`+`L`|<img src="img/img.png" alt="Add illustration button" height="25"/>|Add illustration|
 |`Ctrl`+`D`|<img src="img/division.png" alt="Divide paragraph button" height="25"/>|Divide paragraph|
+|`Ctrl`+ `Shift` + `D`|<img src="img/division_by_newline.png" alt="Divide paragraph button" height="25"/>|Divide paragraph by newlines|
 |`Ctrl`+`M`|<img src="img/concatenation.png" alt="Concatenate paragraphs button" height="25"/>|Concatenate paragraphs|
 |`Ctrl`+`U`|<img src="img/concatenation_space.png" alt="Concatenate paragraphs via space button" height="25"/>|Concatenate paragraphs via space|
 |`Ctrl`+`Y`|<img src="img/concatenation_delimiter.png" alt="Concatenate paragraphs via delimiter button" height="25"/>|Concatenate paragraphs via delimiter|

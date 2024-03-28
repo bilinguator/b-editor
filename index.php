@@ -267,6 +267,9 @@
                 <button class="panel-button division-panel-button" title="Divide paragraph<?=$br?>(Ctrl+D)" onmousedown="divideParagraph()">
                     <img class="panel-button-img" src="img/division.png" />
                 </button>
+                <button class="panel-button division-panel-button" title="Divide paragraph by newline<?=$br?>(Ctrl+Shift+D)" onmousedown="divideParagraphBySubstring('\n')">
+                    <img class="panel-button-img" src="img/division_by_newline.png" />
+                </button>
                 <button class="panel-button concatenation-panel-button" title="Concatenate paragraphs<?=$br?>(Ctrl+M)" onmousedown="concatenateParagraphs('')">
                     <img class="panel-button-img" src="img/concatenation.png" />
                 </button>
@@ -1035,7 +1038,7 @@
         });
         
         // Divide paragraphs
-        function divideParagraph () {
+        function divideParagraph (position = null) {
             let targetParagraph = document.activeElement;
             if (!targetParagraph.classList.contains('paragraph')) {
                 return false;
@@ -1049,8 +1052,16 @@
                 appendTerminalEmptyParagraphs();
             }
             
-            let start = targetParagraph.selectionStart;
-            let end = targetParagraph.selectionEnd;
+            let start = null;
+            let end = null;
+
+            if (position == null) {
+                start = targetParagraph.selectionStart;
+                end = targetParagraph.selectionEnd;
+            } else {
+                start = position;
+                end = position;
+            }
             
             if (start != end) {
                 return false;
@@ -1079,6 +1090,19 @@
             document.querySelectorAll('.panel-button').forEach((button) => {
                 button.classList.remove('save-not-needed');
             });
+        }
+
+        function divideParagraphBySubstring (substring='\n') {
+            let targetParagraph = document.activeElement;
+            if (!targetParagraph.value.includes(substring) || !targetParagraph.classList.contains('paragraph')) {
+                return false;
+            }
+
+            while (targetParagraph.value.includes(substring)) {
+                targetParagraph.focus();
+                substringPosition = targetParagraph.value.lastIndexOf(substring);
+                divideParagraph(substringPosition);
+            }
         }
         
         // Delete paragraphs by indexes
@@ -1160,6 +1184,14 @@
             if (event.ctrlKey && event.keyCode === 68) {
                 event.preventDefault();
                 divideParagraph();
+            }
+        });
+
+        // Divide paragraph by newline (Ctrl+Shift+D)
+        document.addEventListener('keydown', function(event) {
+            if (event.ctrlKey && event.shiftKey && event.keyCode === 68) {
+                event.preventDefault();
+                divideParagraphBySubstring('\n');
             }
         });
         
